@@ -1,3 +1,5 @@
+import { MessageDto } from "src/dtos/message.dto";
+
 export interface Message{
-    handle(userAnswer: string);
+    handle(message: MessageDto);
 }
