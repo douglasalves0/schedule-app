@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session{
+  id Int @id @default(autoincrement())
+  sessionMessages SessionMessage[]
+  schedules Schedule[]
+  waUser String
+  started DateTime
+  latestMessage DateTime
+  status String
+}
+
+model SessionMessage{
+  id Int @id @default(autoincrement())
+  session Session @relation(fields: [sessionId], references: [id])
+  sessionId Int
+  src String
+  from String
+  message String
+  direction String
+  date DateTime
+}
+
+model Schedule{
+  id Int @id @default(autoincrement())
+  session Session @relation(fields: [sessionId], references: [id])
+  sessionId Int
+  schedulesNotify ScheduleNotify[]
+  code String
+  type String
+  date DateTime
+  status String
+  error String
+  created DateTime
+  updated DateTime
+}
+
+model ScheduleNotify{
+  id Int @id @default(autoincrement())
+  schedules Schedule @relation(fields: [scheduleId], references: [id])
+  scheduleId Int
+  notifyNumber String
+  message String
+}
