@@ -11,10 +11,10 @@ export class SessionMessageModel{
     session: SessionModel;
 
     @Column()
-    src: string;
+    from: string;
 
     @Column()
-    from: string;
+    to: string;
 
     @Column()
     message: string;

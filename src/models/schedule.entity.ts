@@ -1,5 +1,5 @@
 
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SessionModel } from "./session.entity";
 import { ScheduleNotifyModel } from "./schedule.notify.entity";
 
@@ -35,6 +35,5 @@ export class ScheduleModel{
 
     @Column()
     updated: Date;
-
 
 }

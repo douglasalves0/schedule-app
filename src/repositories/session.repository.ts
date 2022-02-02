@@ -1,13 +1,10 @@
-import { InjectRepository } from "@nestjs/typeorm";
 import { SessionDto } from "src/dtos/session.dto";
 import { SessionModel } from "src/models/session.entity";
-import { Repository } from "typeorm";
+import { getRepository } from "typeorm";
 
 export class SessionRepository{
 
-    constructor (
-        @InjectRepository(SessionModel) private session: Repository<SessionModel>
-    ){}
+    session = getRepository(SessionModel);
 
     public async save(session: SessionDto): Promise<SessionModel>{
         const answer = await this.session.save(session);
