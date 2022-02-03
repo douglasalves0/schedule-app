@@ -2,12 +2,13 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SessionModel } from "./session.entity";
 import { ScheduleNotifyModel } from "./schedule.notify.entity";
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
 export class ScheduleModel{
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id: uuidv4;
 
     @ManyToOne(() => SessionModel, session => session.schedule)
     session: SessionModel;

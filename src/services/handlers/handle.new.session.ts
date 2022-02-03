@@ -1,8 +1,8 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { SessionRepository } from "src/repositories/session.repository";
-import { WelcomeMessage } from "src/utils/consts";
-import { Message } from "./message.interface";
+import { WelcomeMessage } from "src/utils/constants";
+import { Message } from "../interfaces/message.interface";
 
 export class HandleNewSession implements Message{
     public async handle(message: MessageDto) {

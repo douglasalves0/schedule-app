@@ -1,6 +1,8 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
-import { HandleNewSession } from "./handle.new.session";
+import { ChoiceNotificationMessage, ConfirmNotificationMessage, CreateNotificationMessage, WelcomeMessage } from "src/utils/constants";
+import { HandleNewSession } from "./handlers/handle.new.session";
+import { HandleWelcomeMessage } from "./handlers/handle.welcome.message";
 
 export class HandleMessage{
     public async handle(message: MessageDto){
@@ -23,7 +25,18 @@ export class HandleMessage{
             return;
         }
 
-        console.log("outra mensagem")
+        switch (answer.message){
+            case WelcomeMessage:
+                const welcomeHandler = new HandleWelcomeMessage;
+                welcomeHandler.handle(message);
+                break;
+            case CreateNotificationMessage:
+                break;
+            case ChoiceNotificationMessage:
+                break;
+            case ConfirmNotificationMessage:
+                break;
+        }
     
     }
 }

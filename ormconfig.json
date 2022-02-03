@@ -6,5 +6,10 @@
     "password": "123",
     "database": "scheduledatabase",
     "entities": ["dist/**/*.entity.js"],
-    "synchronize": true
+    "synchronize": false,
+    "migrationsTableName": "migrations",
+    "migrations": ["migration/*.ts"],
+    "cli": {
+        "migrationsDir": "migration"
+    }
 }
