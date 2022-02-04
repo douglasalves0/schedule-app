@@ -1,19 +1,19 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { ScheduleModel } from "./schedule.entity";
-import { SessionMessageModel } from "./session.message.entity";
+import { Schedule } from "src/models/schedule.entity";
+import { SessionMessage } from "./session.message.entity";
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
-export class SessionModel{
+export class Session{
 
     @PrimaryGeneratedColumn()
     id: uuidv4;
 
-    @OneToMany(() => ScheduleModel, schedule => schedule.session)
-    schedule: ScheduleModel[];
+    @OneToMany(() => Schedule, schedule => schedule.session)
+    schedule: Schedule[];
 
-    @OneToMany(() => SessionMessageModel, sessionMessage => sessionMessage.session)
-    sessionMessages: SessionMessageModel[];
+    @OneToMany(() => SessionMessage, sessionMessage => sessionMessage.session)
+    sessionMessages: SessionMessage[];
 
     @Column()
     waUser: string;

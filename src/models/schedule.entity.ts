@@ -1,20 +1,20 @@
 
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { SessionModel } from "./session.entity";
-import { ScheduleNotifyModel } from "./schedule.notify.entity";
+import { Session } from "./session.entity";
+import { ScheduleNotify } from "./schedule.notify.entity";
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
-export class ScheduleModel{
+export class Schedule{
 
     @PrimaryGeneratedColumn()
     id: uuidv4;
 
-    @ManyToOne(() => SessionModel, session => session.schedule)
-    session: SessionModel;
+    @ManyToOne(() => Session, session => session.schedule)
+    session: Session;
 
-    @OneToMany(() => ScheduleNotifyModel, scheduleNotify => scheduleNotify.schedule)
-    schedulesNotify: ScheduleNotifyModel[];
+    @OneToMany(() => ScheduleNotify, scheduleNotify => scheduleNotify.schedule)
+    schedulesNotify: ScheduleNotify[];
 
     @Column()
     code: string;
