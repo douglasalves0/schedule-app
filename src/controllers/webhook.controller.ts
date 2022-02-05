@@ -3,6 +3,7 @@ import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { SessionRepository } from "src/repositories/session.repository";
 import { HandleMessage } from "src/services/handle.message";
+import { v4 as uuidv4} from 'uuid';
 
 @Controller('/webhooks')
 export class WebhookController{
@@ -11,12 +12,7 @@ export class WebhookController{
         const repo1 = new SessionRepository;
         const repo = new SessionMessageRepository;
         console.log("oi");
-        var id = await repo1.save({
-            latestMessage: new Date(),
-            started: new Date(),
-            status: 'bem',
-            wa_user: "OI"
-        });
+        var id = await repo1.findById('b2458af5-3db9-49bf-8757-7bcd7c680ac7');
         console.log("oi2");
         /*const sessionId = id.id;
         repo.save({

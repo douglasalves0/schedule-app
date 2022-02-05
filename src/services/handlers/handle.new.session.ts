@@ -6,7 +6,7 @@ import { Message } from "../interfaces/message.interface";
 
 export class HandleNewSession implements Message{
     public async handle(message: MessageDto) {
-        
+        /*
         const sessionRepo = new SessionRepository;
         const sessionMessageRepo = new SessionMessageRepository;
 
@@ -20,7 +20,7 @@ export class HandleNewSession implements Message{
             latestMessage: new Date(),
             status: "in_progress"
         });
-        /*const sessionMessageBot = await sessionMessageRepo.save({
+        const sessionMessageBot = await sessionMessageRepo.save({
             session_id: session.id,
             to: userNumber,
             from: botNumber,
