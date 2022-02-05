@@ -15,12 +15,12 @@ export class HandleNewSession implements Message{
         const userMessage = message.content;
 
         const session = await sessionRepo.save({
-            waUser: userNumber,
+            wa_user: userNumber,
             started: new Date(),
             latestMessage: new Date(),
             status: "in_progress"
         });
-        const sessionMessageBot = await sessionMessageRepo.save({
+        /*const sessionMessageBot = await sessionMessageRepo.save({
             session_id: session.id,
             to: userNumber,
             from: botNumber,
@@ -37,6 +37,6 @@ export class HandleNewSession implements Message{
             date: new Date()
         });
         console.log(WelcomeMessage);
-    
+ */   
     }
 }

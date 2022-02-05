@@ -1,5 +1,5 @@
 export class SessionDto{
-    waUser: string;
+    wa_user: string;
     started: Date;
     latestMessage: Date;
     status: string;

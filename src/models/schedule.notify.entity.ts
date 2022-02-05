@@ -12,7 +12,7 @@ export class ScheduleNotify{
     schedule: Schedule;
 
     @Column()
-    notifyNumber: string;
+    notify_number: string;
 
     @Column()
     message: string;

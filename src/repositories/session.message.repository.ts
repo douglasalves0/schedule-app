@@ -1,14 +1,14 @@
 import { SessionMessageDto } from "src/dtos/session.message.dto";
 import { SessionMessage } from "src/models/session.message.entity";
-import { getRepository } from "typeorm";
+import { createConnection, getRepository, getConnection } from "typeorm";
+import { v4 as uuidv4} from 'uuid';
 
 export class SessionMessageRepository{
 
     sessionMessage = getRepository(SessionMessage);
 
-    public async save(sessionMessage: SessionMessageDto)/*: Promise<SessionMessageModel>*/{
-        const answer = await this.sessionMessage.save(sessionMessage);
-        return answer;
+    public async save(sessionMessageDto: SessionMessageDto): Promise<uuidv4>{
+        const conn = await createConnection();
     }
 
     public async findAll(): Promise<SessionMessage[]>{

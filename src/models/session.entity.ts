@@ -16,13 +16,13 @@ export class Session{
     sessionMessages: SessionMessage[];
 
     @Column()
-    waUser: string;
+    wa_user: string;
 
     @Column()
     started: Date;
 
     @Column()
-    latestMessage: Date;
+    latest_message: Date;
 
     @Column()
     status: string;
