@@ -1,5 +1,5 @@
 export class SessionMessageDto{
-    sessionId: number;
+    session_id: number;
     to: string;
     from: string;
     message: string;

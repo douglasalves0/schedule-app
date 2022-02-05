@@ -21,7 +21,7 @@ export class HandleNewSession implements Message{
             status: "in_progress"
         });
         const sessionMessageBot = await sessionMessageRepo.save({
-            sessionId: session.id,
+            session_id: session.id,
             to: userNumber,
             from: botNumber,
             message: WelcomeMessage,
@@ -29,7 +29,7 @@ export class HandleNewSession implements Message{
             date: new Date()
         });
         const sessionMessageUser = await sessionMessageRepo.save({
-            sessionId: session.id,
+            session_id: session.id,
             to: botNumber,
             from: userNumber,
             message: userMessage,

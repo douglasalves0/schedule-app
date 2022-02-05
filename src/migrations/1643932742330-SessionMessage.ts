@@ -18,6 +18,9 @@ export class SessionMessage1643932742330 implements MigrationInterface {
                         name: 'session_id',
                         type: 'uuid',
                     },{
+                        name: 'direction',
+                        type: 'varchar'
+                    },{
                         name: 'from',
                         type: 'varchar'
                     },{

@@ -22,7 +22,9 @@ export class SessionMessageRepository{
     }
 
     public async findLatestBotMessage(userNumber: string): Promise<SessionMessage>{
+        console.log("aqui");
         const found = await this.sessionMessage.find({ where: {direction: 'out', to: userNumber}});
+        console.log("aqui também")
         if(found.length == 0){
             var sessionMessage = new SessionMessage;
             sessionMessage.date = new Date('01/01/1999 00:00:00 AM');

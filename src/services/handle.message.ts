@@ -14,8 +14,10 @@ export class HandleMessage{
         const sessionMessageRepo = new SessionMessageRepository;
         const userNumber = message.from;
 
+        console.log(1);
         const answer = await sessionMessageRepo.findLatestBotMessage(userNumber);
-        
+        console.log(2);
+
         const now = new Date();
         const MilissecondsDifference = now.getTime() - answer.date.getTime();
         
