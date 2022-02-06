@@ -1,6 +1,8 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { ChoiceNotificationMessage, ConfirmNotificationMessage, CreateNotificationMessage, WelcomeMessage } from "src/utils/constants";
+import { CreateNotificationHandler } from "./handlers/handle.create.notification";
+import { DefaultHandler } from "./handlers/handle.default";
 import { HandleNewSession } from "./handlers/handle.new.session";
 import { HandleWelcomeMessage } from "./handlers/handle.welcome.message";
 
@@ -29,15 +31,21 @@ export class HandleMessage{
 
         switch (answer.message){
             case WelcomeMessage:
-                console.log("entrou");
                 const welcomeHandler = new HandleWelcomeMessage;
                 welcomeHandler.handle(message, sessionId);
                 break;
             case CreateNotificationMessage:
+                console.log("entrou");
+                const createNotificationHandler = new CreateNotificationHandler();
+                createNotificationHandler.handle(message, sessionId);
                 break;
             case ChoiceNotificationMessage:
                 break;
             case ConfirmNotificationMessage:
+                break;
+            default:
+                const defaultHandler = new DefaultHandler();
+                defaultHandler.handle(message, sessionId);
                 break;
         }
    

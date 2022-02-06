@@ -2,7 +2,7 @@ import { MessageDto } from "src/dtos/message.dto";
 import { Message } from "../interfaces/message.interface";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { SessionRepository } from "src/repositories/session.repository";
-import { OnlyNumbersAllowed } from "src/utils/constants";
+import { CreateNotificationMessage, OnlyNumbersAllowed } from "src/utils/constants";
 import { v4 as uuidv4} from "uuid";
 
 export class HandleWelcomeMessage implements Message{
@@ -17,20 +17,20 @@ export class HandleWelcomeMessage implements Message{
 
         sessionMessageRepo.save({
             date: new Date,
-            direction: 'out',
-            from: botNumber,
-            to: userNumber,
-            message: OnlyNumbersAllowed,
+            direction: 'in',
+            from: userNumber,
+            to: botNumber,
+            message: userMessage,
             session_id: sessionId
         });
         
         if(isNaN(Number(userMessage))){
             sessionMessageRepo.save({
                 date: new Date,
-                direction: 'in',
-                from: userNumber,
-                to: botNumber,
-                message: userMessage,
+                direction: 'out',
+                from: botNumber,
+                to: userNumber,
+                message: OnlyNumbersAllowed,
                 session_id: sessionId
             });
             console.log("Mensagem do bot:\n" + OnlyNumbersAllowed);
@@ -42,17 +42,26 @@ export class HandleWelcomeMessage implements Message{
         if(userOption < 1 || userOption > 4){
             sessionMessageRepo.save({
                 date: new Date,
-                direction: 'in',
-                from: userNumber,
-                to: botNumber,
-                message: userMessage,
+                direction: 'out',
+                from: botNumber,
+                to: userNumber,
+                message: OnlyNumbersAllowed,
                 session_id: sessionId
             });
             console.log("Mensagem do bot:\n" + OnlyNumbersAllowed);
             return;
         }
 
-        console.log("Em desenvolvimento...");
+        sessionMessageRepo.save({
+            date: new Date,
+            direction: 'out',
+            from: botNumber,
+            to: userNumber,
+            message: CreateNotificationMessage,
+            session_id: sessionId
+        });
+
+        console.log("Mensagem do bot:\n" + CreateNotificationMessage);
 
     }
 }

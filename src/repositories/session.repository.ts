@@ -11,7 +11,6 @@ export class SessionRepository{
         into(Session).
         values([session]).
         execute();
-        console.log(answer.raw[0].id);
         return answer.raw[0].id;
     }
 

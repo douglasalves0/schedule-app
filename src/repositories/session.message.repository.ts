@@ -49,6 +49,7 @@ export class SessionMessageRepository{
                 date: new Date('01/01/1999 00:00:00 AM')
             };
         }
+        console.log(answer);
         var answer = found[0];
         for(var i=0;i<found.length;i++){
             if(found[i].date > answer.date){

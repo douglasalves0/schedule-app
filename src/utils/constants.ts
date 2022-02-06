@@ -4,3 +4,4 @@ export const ChoiceNotificationMessage = "Informe a mensagem a ser enviada:";
 export const ConfirmNotificationMessage = "Digite 1 para confirmar ou 2 para editar os dados.";
 
 export const OnlyNumbersAllowed = "São aceitos apenas números válidos";
+export const ValidDateNeeded = "Uma data válida é necessária!";
