@@ -3,7 +3,7 @@ import { Schedule } from "src/models/schedule.entity";
 import { SessionMessage } from "./session.message.entity";
 import { v4 as uuidv4 } from 'uuid';
 
-@Entity()
+@Entity({name: 'session'})
 export class Session{
 
     @PrimaryGeneratedColumn()

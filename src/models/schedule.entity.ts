@@ -4,7 +4,7 @@ import { Session } from "./session.entity";
 import { ScheduleNotify } from "./schedule.notify.entity";
 import { v4 as uuidv4 } from 'uuid';
 
-@Entity()
+@Entity({name: 'schedule'})
 export class Schedule{
 
     @PrimaryGeneratedColumn()
@@ -12,6 +12,9 @@ export class Schedule{
 
     @ManyToOne(() => Session, session => session.schedule)
     session: Session;
+
+    @Column()
+    session_id: uuidv4;
 
     @OneToMany(() => ScheduleNotify, scheduleNotify => scheduleNotify.schedule)
     schedulesNotify: ScheduleNotify[];

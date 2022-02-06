@@ -1,11 +1,9 @@
 import { SessionDto } from "src/dtos/session.dto";
 import { Session } from "src/models/session.entity";
-import { getRepository, createConnection, createQueryBuilder } from "typeorm";
+import { createQueryBuilder } from "typeorm";
 import { v4 as uuidv4} from 'uuid';
 
 export class SessionRepository{
-
-    session = getRepository(Session);
 
     public async save(session: SessionDto): Promise<uuidv4>{
         const answer = await createQueryBuilder().
@@ -13,6 +11,7 @@ export class SessionRepository{
         into(Session).
         values([session]).
         execute();
+        console.log(answer.raw[0].id);
         return answer.raw[0].id;
     }
 
@@ -30,7 +29,6 @@ export class SessionRepository{
         from(Session, "session").
         where("session.id = :id",{id:session_id}).
         execute();
-        console.log(answer);
         return answer;
     }
 

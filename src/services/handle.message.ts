@@ -14,23 +14,24 @@ export class HandleMessage{
         const sessionMessageRepo = new SessionMessageRepository;
         const userNumber = message.from;
 
-        console.log(1);
         const answer = await sessionMessageRepo.findLatestBotMessage(userNumber);
-        console.log(2);
 
         const now = new Date();
         const MilissecondsDifference = now.getTime() - answer.date.getTime();
-        
+
         if(MilissecondsDifference/1000/60 > 60){
             const newSession = new HandleNewSession;
-            newSession.handle(message);
+            newSession.handle(message, 'aaaa');
             return;
         }
 
+        const sessionId = answer.session_id;
+
         switch (answer.message){
             case WelcomeMessage:
+                console.log("entrou");
                 const welcomeHandler = new HandleWelcomeMessage;
-                welcomeHandler.handle(message);
+                welcomeHandler.handle(message, sessionId);
                 break;
             case CreateNotificationMessage:
                 break;
@@ -39,6 +40,6 @@ export class HandleMessage{
             case ConfirmNotificationMessage:
                 break;
         }
-    
+   
     }
 }
