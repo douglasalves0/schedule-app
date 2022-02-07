@@ -27,6 +27,8 @@ export class CreateNotificationHandler implements Message{
 
         var isValidDate  = !isNaN(Date.parse(givenDate));
 
+        console.log(this.checkDate(givenDate));
+
         if(!isValidDate){
             sessionMessageRepo.save({
                 date: new Date(),
@@ -41,13 +43,13 @@ export class CreateNotificationHandler implements Message{
         }
 
         console.log("A data é válida\n");
-
         //mecher no schedule
 
     }
     public checkDate(date: string): boolean{
-        var twoDots:number[];
-        var bars:number[];
+        var twoDots:number[] = [];
+        var bars:number[] = [];
+        console.log("oi");
         for(var i=0;i<date.length;i++){
             if(date[i] == '/'){
                 bars.push(i);
@@ -66,9 +68,43 @@ export class CreateNotificationHandler implements Message{
             return false;
         }
         var strNumber1: string;
+        for(var i=0;i<=twoDots[0]-1;i++){
+            strNumber1 += date[i];
+            if(date[i]==' '){
+                return false;
+            }
+        }
         var strNumber2: string;
+        for(var i=twoDots[0]+1;i<=twoDots[1]-1;i++){
+            strNumber2 += date[i];
+            if(date[i]==' '){
+                return false;
+            }
+        }
         var strNumber3: string;
+        var p = bars[0]-1;
+        for(var i=twoDots[1]+1;i<=bars[0]-1;i++){
+            if(date[i]==' '){
+                p = i;
+                break;
+            }
+            strNumber3 += date[i];
+        }
         var strNumber4: string;
+        for(var i=p+1;i<=bars[0]-1;i++){
+            strNumber4 += date[i];
+            if(date[i]==' '){
+                return false;
+            }
+        }
         var strNumber5: string;
+        for(var i=bars[0]+1;i<=date.length-1;i++){
+            strNumber5 += date[i];
+            if(date[i]==' '){
+                return false;
+            }
+        }
+        console.log(strNumber1 + "/" + strNumber2 + "/" + strNumber3 + " " + strNumber4 + ":" + strNumber5);
+        return true;
     }
 }
