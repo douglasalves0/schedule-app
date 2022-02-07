@@ -35,7 +35,6 @@ export class HandleMessage{
                 welcomeHandler.handle(message, sessionId);
                 break;
             case CreateNotificationMessage:
-                console.log("entrou");
                 const createNotificationHandler = new CreateNotificationHandler();
                 createNotificationHandler.handle(message, sessionId);
                 break;

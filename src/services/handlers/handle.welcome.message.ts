@@ -39,17 +39,26 @@ export class HandleWelcomeMessage implements Message{
 
         const userOption = Number(userMessage);
 
-        if(userOption < 1 || userOption > 4){
-            sessionMessageRepo.save({
-                date: new Date,
-                direction: 'out',
-                from: botNumber,
-                to: userNumber,
-                message: OnlyNumbersAllowed,
-                session_id: sessionId
-            });
-            console.log("Mensagem do bot:\n" + OnlyNumbersAllowed);
-            return;
+        switch(userOption){
+            case 1:
+                break;
+            case 2:
+                sessionMessageRepo.save({
+                    date: new Date,
+                    direction: 'out',
+                    from: botNumber,
+                    to: userNumber,
+                    message: OnlyNumbersAllowed,
+                    session_id: sessionId
+                });
+                console.log("Mensagem do bot:\n" + OnlyNumbersAllowed);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
         }
 
         sessionMessageRepo.save({
