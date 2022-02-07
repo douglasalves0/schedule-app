@@ -5,28 +5,28 @@ import { v4 as uuidv4} from 'uuid';
 
 export class ScheduleRepository{
 
-    public async save(session: SessionDto): Promise<uuidv4>{
+    public async save(schedule: ScheduleDto): Promise<uuidv4>{
         const answer = await createQueryBuilder().
         insert().
-        into(Session).
-        values([session]).
+        into(Schedule).
+        values([schedule]).
         execute();
         return answer.raw[0].id;
     }
 
-    public async findAll(): Promise<SessionDto[]>{
+    public async findAll(): Promise<Schedule[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(Session, "session").
+        from(Schedule, "schedule").
         execute();
         return answer;
     }
 
-    public async findById(session_id: uuidv4): Promise<SessionDto>{
+    public async findById(scheduleId: uuidv4): Promise<Schedule>{
         const answer = await createQueryBuilder().
         select("*").
-        from(Session, "session").
-        where("session.id = :id",{id:session_id}).
+        from(Schedule, "schedule").
+        where("schedule.id = :id",{id:scheduleId}).
         execute();
         return answer;
     }

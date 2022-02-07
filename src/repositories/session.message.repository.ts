@@ -15,7 +15,7 @@ export class SessionMessageRepository{
         return answer.raw[0].id;
     }
 
-    public async findAll(): Promise<SessionMessageDto[]>{
+    public async findAll(): Promise<SessionMessage[]>{
         const answer = await createQueryBuilder().
         select("*").
         from(SessionMessage, "session_message").
@@ -32,7 +32,7 @@ export class SessionMessageRepository{
         return answer;
     }
 
-    public async findLatestBotMessage(userNumber: string): Promise<SessionMessageDto>{
+    public async findLatestBotMessage(userNumber: string): Promise<SessionMessage>{
         const found = await createQueryBuilder().
         select("*").
         from(SessionMessage, "session_message").
@@ -40,14 +40,9 @@ export class SessionMessageRepository{
         andWhere("session_message.to = :to",{to: userNumber}).
         execute();
         if(found.length == 0){
-            return {
-                session_id: "",
-                from: "",
-                to: "",
-                message: "",
-                direction: "",
-                date: new Date('01/01/1999 00:00:00 AM')
-            };
+            var sessionMessage = new SessionMessage();
+            sessionMessage.date = new Date('01/01/1999 00:00:00 AM');
+            return sessionMessage;
         }
         console.log(answer);
         var answer = found[0];
