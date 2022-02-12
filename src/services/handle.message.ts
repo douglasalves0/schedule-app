@@ -38,20 +38,20 @@ export class HandleMessage{
 
         switch (latest.message){
             case WelcomeMessage:
-                welcomeHandler.handle(message, sessionId);
+                await welcomeHandler.handle(message, sessionId);
                 break;
             case CreateNotificationMessage:
-                createNotificationHandler.handle(message, sessionId);
+                await createNotificationHandler.handle(message, sessionId);
                 break;
             case ChoiceNotificationMessage:
-                choiceNotificationHandler.handle(message, sessionId);
+                await choiceNotificationHandler.handle(message, sessionId);
                 break;
             case ConfirmNotificationMessage:
-                confirmNotificationHangler.handle(message, sessionId);
+                await confirmNotificationHangler.handle(message, sessionId);
                 break;
             default:
                 console.log("Tratamento padrão");
-                defaultHandler.handle(message, sessionId);
+                await defaultHandler.handle(message, sessionId);
                 break;
         }
    

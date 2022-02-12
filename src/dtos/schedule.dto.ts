@@ -8,4 +8,5 @@ export class ScheduleDto{
     error: string;
     created: Date;
     updated: Date;
+    code: string;
 }

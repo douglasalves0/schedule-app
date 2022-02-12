@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export function checkDate(date: string): string{
     var twoDots:number[] = [];
     var bars:number[] = [];
@@ -63,4 +65,17 @@ export function checkDate(date: string): string{
         return undefined;
     }
     return MonthDayYearDate;
+}
+
+export function getCode(): string{
+    var uuid = uuidv4();
+    var answer = "";
+    for(var i=0;i<8;i++){
+        answer += uuid[i];
+    }
+    return answer;
+}
+
+export function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
 }

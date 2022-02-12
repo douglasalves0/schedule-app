@@ -3,7 +3,7 @@ import { ScheduleNotifyDto } from "src/dtos/schedule.notify.dto";
 import { createQueryBuilder } from "typeorm";
 import { v4 as uuidv4} from 'uuid';
 
-export class ScheduleRepository{
+export class ScheduleNotifyRepository{
 
     public async save(scheduleNotify: ScheduleNotifyDto): Promise<uuidv4>{
         const answer = await createQueryBuilder().
@@ -25,7 +25,7 @@ export class ScheduleRepository{
     public async findById(scheduleNotifyId: uuidv4): Promise<ScheduleNotify>{
         const answer = await createQueryBuilder().
         select("*").
-        from(ScheduleNotify, "schedule").
+        from(ScheduleNotify, "schedule_notify").
         where("schedule_notify.id = :id",{id:scheduleNotifyId}).
         execute();
         return answer;

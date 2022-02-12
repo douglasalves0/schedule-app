@@ -30,6 +30,17 @@ export class Schedule1643934396736 implements MigrationInterface {
                     },{
                         name: 'error',
                         type: 'varchar'
+                    },{
+                        name: 'created',
+                        type: 'timestamp',
+                        default: 'now()'
+                    },{
+                        name: 'updated',
+                        type: 'timestamp',
+                        default: 'now()'
+                    },{
+                        name: 'code',
+                        type: 'varchar'
                     }
                 ]
             })

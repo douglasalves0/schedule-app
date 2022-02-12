@@ -37,4 +37,7 @@ export class Schedule{
     @Column()
     updated: Date;
 
+    @Column()
+    code: string;
+
 }
