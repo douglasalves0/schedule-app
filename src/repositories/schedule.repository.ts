@@ -31,4 +31,14 @@ export class ScheduleRepository{
         return answer;
     }
 
+    public async findPendingSchedulesBySessionId(sessionId: uuidv4): Promise<Schedule[]>{
+        const answer = await createQueryBuilder().
+        select("*").
+        from(Schedule, "schedule").
+        where("schedule.session_id = :sessionId",{sessionId:sessionId}).
+        andWhere("schedule.status = :status",{status: "pending"}).
+        execute();
+        return answer;
+    }
+
 }

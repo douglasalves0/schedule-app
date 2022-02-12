@@ -31,4 +31,13 @@ export class ScheduleNotifyRepository{
         return answer;
     }
 
+    public async findByScheduleId(scheduleId: uuidv4): Promise<ScheduleNotify[]>{
+        const answer = await createQueryBuilder().
+        select("*").
+        from(ScheduleNotify, "schedule_notify").
+        where("schedule_notify.schedule_id = :scheduleId",{scheduleId:scheduleId}).
+        execute();
+        return answer;
+    }
+
 }
