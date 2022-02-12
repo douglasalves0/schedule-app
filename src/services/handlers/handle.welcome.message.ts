@@ -23,26 +23,28 @@ export class HandleWelcomeMessage implements Message{
             message: userMessage,
             session_id: sessionId
         });
-        
-        if(isNaN(Number(userMessage))){
-            sessionMessageRepo.save({
-                date: new Date,
-                direction: 'out',
-                from: botNumber,
-                to: userNumber,
-                message: OnlyNumbersAllowed,
-                session_id: sessionId
-            });
-            console.log("Mensagem do bot:\n" + OnlyNumbersAllowed);
-            return;
-        }
 
         const userOption = Number(userMessage);
 
         switch(userOption){
             case 1:
                 break;
-            case 2:
+            case 2:        
+                sessionMessageRepo.save({
+                    date: new Date,
+                    direction: 'out',
+                    from: botNumber,
+                    to: userNumber,
+                    message: CreateNotificationMessage,
+                    session_id: sessionId
+                });
+                console.log("Mensagem do bot:\n" + CreateNotificationMessage);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
                 sessionMessageRepo.save({
                     date: new Date,
                     direction: 'out',
@@ -53,24 +55,7 @@ export class HandleWelcomeMessage implements Message{
                 });
                 console.log("Mensagem do bot:\n" + OnlyNumbersAllowed);
                 break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                break;
-        }
-
-        sessionMessageRepo.save({
-            date: new Date,
-            direction: 'out',
-            from: botNumber,
-            to: userNumber,
-            message: CreateNotificationMessage,
-            session_id: sessionId
-        });
-
-        console.log("Mensagem do bot:\n" + CreateNotificationMessage);
+            }
 
     }
 }

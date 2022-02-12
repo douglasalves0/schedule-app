@@ -18,9 +18,6 @@ export class Schedule1643934396736 implements MigrationInterface {
                         name: 'session_id',
                         type: 'uuid',
                     },{
-                        name: 'code',
-                        type: 'varchar'
-                    },{
                         name: 'type',
                         type: 'varchar'
                     },{

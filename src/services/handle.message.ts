@@ -1,10 +1,12 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { ChoiceNotificationMessage, ConfirmNotificationMessage, CreateNotificationMessage, WelcomeMessage } from "src/utils/constants";
-import { CreateNotificationHandler } from "./handlers/handle.create.notification";
+import { HandleCreateNotification } from "./handlers/handle.create.notification";
 import { DefaultHandler } from "./handlers/handle.default";
 import { HandleNewSession } from "./handlers/handle.new.session";
 import { HandleWelcomeMessage } from "./handlers/handle.welcome.message";
+import { HandleChoiceNotification } from "./handlers/handle.choice.notification";
+import { HandleConfirmNotification } from "./handlers/handle.confirm.notification";
 
 export class HandleMessage{
     public async handle(message: MessageDto){
@@ -16,34 +18,39 @@ export class HandleMessage{
         const sessionMessageRepo = new SessionMessageRepository;
         const userNumber = message.from;
 
-        const answer = await sessionMessageRepo.findLatestBotMessage(userNumber);
+        const answer = await sessionMessageRepo.findKthLatestMessageToUser(userNumber, 0);
 
-        const now = new Date();
-        const MilissecondsDifference = now.getTime() - answer.date.getTime();
-
-        if(MilissecondsDifference/1000/60 > 60){
+        if(answer.length == 0){
             const newSession = new HandleNewSession;
-            newSession.handle(message, 'aaaa');
+            newSession.handle(message, undefined);
             return;
         }
 
-        const sessionId = answer.session_id;
+        const latest = answer[0];
 
-        switch (answer.message){
+        const sessionId = latest.session_id;
+
+        const defaultHandler = new DefaultHandler();
+        const welcomeHandler = new HandleWelcomeMessage;
+        const createNotificationHandler = new HandleCreateNotification();
+        const choiceNotificationHandler = new HandleChoiceNotification();
+        const confirmNotificationHangler = new HandleConfirmNotification();
+
+        switch (latest.message){
             case WelcomeMessage:
-                const welcomeHandler = new HandleWelcomeMessage;
                 welcomeHandler.handle(message, sessionId);
                 break;
             case CreateNotificationMessage:
-                const createNotificationHandler = new CreateNotificationHandler();
                 createNotificationHandler.handle(message, sessionId);
                 break;
             case ChoiceNotificationMessage:
+                choiceNotificationHandler.handle(message, sessionId);
                 break;
             case ConfirmNotificationMessage:
+                confirmNotificationHangler.handle(message, sessionId);
                 break;
             default:
-                const defaultHandler = new DefaultHandler();
+                console.log("Tratamento padrão");
                 defaultHandler.handle(message, sessionId);
                 break;
         }

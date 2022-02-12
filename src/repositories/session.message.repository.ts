@@ -32,25 +32,29 @@ export class SessionMessageRepository{
         return answer;
     }
 
-    public async findLatestBotMessage(userNumber: string): Promise<SessionMessage>{
-        const found = await createQueryBuilder().
+    public async findKthLatestMessageToUser(userNumber: string, offset: number): Promise<SessionMessage[]>{
+        const answer = await createQueryBuilder().
         select("*").
         from(SessionMessage, "session_message").
+        orderBy("session_message.date", "DESC").
         where("session_message.direction = :direction",{direction: "out"}).
         andWhere("session_message.to = :to",{to: userNumber}).
+        limit(1).
+        offset(offset).
         execute();
-        if(found.length == 0){
-            var sessionMessage = new SessionMessage();
-            sessionMessage.date = new Date('01/01/1999 00:00:00 AM');
-            return sessionMessage;
-        }
-        console.log(answer);
-        var answer = found[0];
-        for(var i=0;i<found.length;i++){
-            if(found[i].date > answer.date){
-                answer = found[i];
-            }
-        }
+        return answer;
+    }
+
+    public async findKthLatestMessageFromUser(userNumber: string, offset: number): Promise<SessionMessage[]>{
+        const answer = await createQueryBuilder().
+        select("*").
+        from(SessionMessage, "session_message").
+        orderBy("session_message.date", "DESC").
+        where("session_message.direction = :direction",{direction: "in"}).
+        andWhere("session_message.from = :from",{from: userNumber}).
+        limit(1).
+        offset(offset).
+        execute();
         return answer;
     }
 

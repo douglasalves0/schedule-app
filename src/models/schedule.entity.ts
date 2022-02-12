@@ -20,9 +20,6 @@ export class Schedule{
     schedulesNotify: ScheduleNotify[];
 
     @Column()
-    code: string;
-
-    @Column()
     type: string;
 
     @Column()
