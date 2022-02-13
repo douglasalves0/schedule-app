@@ -14,15 +14,6 @@ export class HandleCreateNotification implements Message{
         const botNumber = message.to;
         const givenDate = message.content;
 
-        sessionMessageRepo.save({
-            date: new Date(),
-            direction: "in",
-            from: userNumber,
-            message: givenDate,
-            session_id: sessionId,
-            to: botNumber
-        });
-
         const date = checkDate(givenDate);
 
         if(date == undefined){

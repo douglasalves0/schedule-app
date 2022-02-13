@@ -2,6 +2,7 @@ import { Schedule } from "src/models/schedule.entity";
 import { ScheduleDto } from "src/dtos/schedule.dto";
 import { createQueryBuilder } from "typeorm";
 import { v4 as uuidv4} from 'uuid';
+import { SessionRepository } from "./session.repository";
 
 export class ScheduleRepository{
 
@@ -39,6 +40,25 @@ export class ScheduleRepository{
         andWhere("schedule.status = :status",{status: "pending"}).
         execute();
         return answer;
+    }
+
+    public async findPendingSchedulesByCodeByUserNumber(userNumber: string, code: string): Promise<Schedule>{
+        const answer = await createQueryBuilder().
+        select("*").
+        from(Schedule, "schedule").
+        where("schedule.code = :code",{code:code}).
+        andWhere("schedule.status = :status",{status: "pending"}).
+        execute();
+        const sessionRepo = new SessionRepository;
+        for(var i=0;i<answer.length;i++){
+            const sessionId = answer[i].session_id;
+            const session = await sessionRepo.findById(sessionId);
+            const whatsappNumber = session.wa_user;
+            if(whatsappNumber == userNumber){
+                return answer[i];
+            }
+        }
+        return undefined;
     }
 
 }

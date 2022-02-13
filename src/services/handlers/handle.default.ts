@@ -11,22 +11,13 @@ export class DefaultHandler implements Message{
 
         const userNumber = message.from;
         const botNumber = message.to;
-        const userMessage = message.content;
 
-        const sessionMessageBot = await sessionMessageRepo.save({
+        await sessionMessageRepo.save({
             session_id: sessionId,
             to: userNumber,
             from: botNumber,
             message: WelcomeMessage,
             direction: "out",
-            date: new Date()
-        });
-        const sessionMessageUser = await sessionMessageRepo.save({
-            session_id: sessionId,
-            to: botNumber,
-            from: userNumber,
-            message: userMessage,
-            direction: "in",
             date: new Date()
         });
         console.log("Mensagem enviada pelo bot:\n" + WelcomeMessage);

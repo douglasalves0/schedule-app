@@ -21,20 +21,20 @@ export class HandleNewSession implements Message{
             latest_message: new Date(),
             status: "in_progress"
         });
-        const sessionMessageBot = await sessionMessageRepo.save({
-            session_id: newSessionId,
-            to: userNumber,
-            from: botNumber,
-            message: WelcomeMessage,
-            direction: "out",
-            date: new Date()
-        });
-        const sessionMessageUser = await sessionMessageRepo.save({
+        await sessionMessageRepo.save({
             session_id: newSessionId,
             to: botNumber,
             from: userNumber,
             message: userMessage,
             direction: "in",
+            date: new Date()
+        });
+        await sessionMessageRepo.save({
+            session_id: newSessionId,
+            to: userNumber,
+            from: botNumber,
+            message: WelcomeMessage,
+            direction: "out",
             date: new Date()
         });
         console.log("Mensagem enviada pelo bot:\n" + WelcomeMessage);

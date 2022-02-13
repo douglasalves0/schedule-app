@@ -79,3 +79,7 @@ export function getCode(): string{
 export function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
+
+export function difTime(date1: Date, date2: Date){//gets the difference between two dates in minutes
+    return (date1.getTime() - date2.getTime()) / 1000 / 60;
+}

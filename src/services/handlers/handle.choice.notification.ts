@@ -14,15 +14,6 @@ export class HandleChoiceNotification implements Message{
         const botNumber = message.to;
         const userMessage = message.content;
 
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "in",
-            from: userNumber,
-            message: userMessage,
-            session_id: sessionId,
-            to: botNumber
-        });
-
         var answer = await sessionMessageRepo.findKthLatestMessageFromUser(userNumber, 1);
         const userDateMessage = answer[0];
         const userWantedDate = new Date(checkDate(userDateMessage.message));

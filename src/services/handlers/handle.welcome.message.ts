@@ -2,7 +2,7 @@ import { MessageDto } from "src/dtos/message.dto";
 import { Message } from "../interfaces/message.interface";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { SessionRepository } from "src/repositories/session.repository";
-import { CreateNotificationMessage, OnlyNumbersAllowed } from "src/utils/constants";
+import { CreateNotificationMessage, NeedScheduleCode, OnlyNumbersAllowed } from "src/utils/constants";
 import { v4 as uuidv4} from "uuid";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
@@ -18,15 +18,6 @@ export class HandleWelcomeMessage implements Message{
         const userNumber = message.from;
         const botNumber = message.to;
         const userMessage = message.content;
-
-        await sessionMessageRepo.save({
-            date: new Date,
-            direction: 'in',
-            from: userNumber,
-            to: botNumber,
-            message: userMessage,
-            session_id: sessionId
-        });
 
         const userOption = Number(userMessage);
 
@@ -63,6 +54,15 @@ export class HandleWelcomeMessage implements Message{
                 console.log("Mensagem do bot:\n" + CreateNotificationMessage);
                 break;
             case 3:
+                await sessionMessageRepo.save({
+                    date: new Date,
+                    direction: 'out',
+                    from: botNumber,
+                    to: userNumber,
+                    message: NeedScheduleCode,
+                    session_id: sessionId
+                });
+                console.log("Mensagem do bot:\n" + NeedScheduleCode);
                 break;
             case 4:
                 break;

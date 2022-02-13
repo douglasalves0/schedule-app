@@ -18,15 +18,6 @@ export class HandleConfirmNotification implements Message{
         const botNumber = message.to;
         const userMessage = message.content;
 
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "in",
-            from: userNumber,
-            message: userMessage,
-            session_id: sessionId,
-            to: botNumber
-        });
-
         const userDateMessage = (await sessionMessageRepo.findKthLatestMessageFromUser(userNumber, 2))[0].message;
         const userNotifyMessage = (await sessionMessageRepo.findKthLatestMessageFromUser(userNumber, 1))[0].message;
 
