@@ -3,7 +3,7 @@ import { Message } from "../interfaces/message.interface";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { v4 as uuidv4} from "uuid";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
-import { ConfirmNotificationMessage, NotFoundSchedule } from "src/utils/constants";
+import { ContinueEditing, NotFoundSchedule } from "src/utils/constants";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
 import { delay } from "src/utils/functions";
 
@@ -35,9 +35,9 @@ export class HandleNeedScheduleCode implements Message{
 
         const scheduledMessage = (await scheduleNotifyRepo.findByScheduleId(schedule.id))[0].message;
         var botMessage = "";
-        botMessage += "Agendamento encontrado:\n\n";
+        botMessage += "Agendamento encontrado:\n";
         botMessage += "Mensagem: " + scheduledMessage + "\n";
-        botMessage += "Data: " + schedule.date + "\n";
+        botMessage += "Agendado para: " + schedule.date + "\n";
 
         await sessionMessageRepo.save({
             date: new Date,
@@ -55,11 +55,11 @@ export class HandleNeedScheduleCode implements Message{
             direction: 'out',
             from: botNumber,
             to: userNumber,
-            message: ConfirmNotificationMessage,
+            message: ContinueEditing,
             session_id: sessionId
         });
 
-        console.log(NotFoundSchedule);
+        console.log(botMessage + ContinueEditing);
         return;
 
     }

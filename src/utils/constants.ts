@@ -8,6 +8,7 @@ export const ConfirmNotificationMessage = "Digite 1 para confirmar ou 2 para edi
 
 //choice 3
 export const NeedScheduleCode = "Digite o código do agendamento que deseja alterar:";
+export const ContinueEditing = "Digite 1 para confirmar ou 2 para cancelar a edição";
 
 //default messages
 export const OnlyNumbersAllowed = "São aceitos apenas números válidos!";

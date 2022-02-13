@@ -49,11 +49,12 @@ export class ScheduleRepository{
         where("schedule.code = :code",{code:code}).
         andWhere("schedule.status = :status",{status: "pending"}).
         execute();
+        console.log(answer);
         const sessionRepo = new SessionRepository;
         for(var i=0;i<answer.length;i++){
             const sessionId = answer[i].session_id;
             const session = await sessionRepo.findById(sessionId);
-            const whatsappNumber = session.wa_user;
+            const whatsappNumber = session[0].wa_user;
             if(whatsappNumber == userNumber){
                 return answer[i];
             }

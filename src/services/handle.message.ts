@@ -9,6 +9,7 @@ import { HandleChoiceNotification } from "./handlers/handle.choice.notification"
 import { HandleConfirmNotification } from "./handlers/handle.confirm.notification";
 import { SessionRepository } from "src/repositories/session.repository";
 import { difTime } from "src/utils/functions";
+import { HandleNeedScheduleCode } from "./handlers/handle.need.schedule.code";
 
 export class HandleMessage{
     public async handle(message: MessageDto){
@@ -45,7 +46,7 @@ export class HandleMessage{
         const sessionId = latest.session_id;
 
         await sessionMessageRepo.save({
-            date: new Date,
+            date: new Date(),
             direction: 'in',
             from: userNumber,
             to: botNumber,
@@ -54,12 +55,15 @@ export class HandleMessage{
         });
 
         await sessionRepo.updateDateById(sessionId);
-
-        const defaultHandler = new DefaultHandler();
+        
         const welcomeHandler = new HandleWelcomeMessage;
+        
+        const defaultHandler = new DefaultHandler();
         const createNotificationHandler = new HandleCreateNotification();
         const choiceNotificationHandler = new HandleChoiceNotification();
-        const confirmNotificationHangler = new HandleConfirmNotification();
+        const confirmNotificationHandler = new HandleConfirmNotification();
+
+        const needScheduleCodeHandler = new HandleNeedScheduleCode;
 
         switch (latest.message){
             case WelcomeMessage:
@@ -72,10 +76,10 @@ export class HandleMessage{
                 choiceNotificationHandler.handle(message, sessionId);
                 break;
             case ConfirmNotificationMessage:
-                confirmNotificationHangler.handle(message, sessionId);
+                confirmNotificationHandler.handle(message, sessionId);
                 break;
             case NeedScheduleCode:
-                 ;
+                needScheduleCodeHandler.handle(message, sessionId);
                 break;
             default:
                 console.log("Tratamento padrão");

@@ -34,7 +34,7 @@ export class SessionRepository{
     public async updateDateById(session_id: uuidv4){
         await createQueryBuilder()
         .update(Session)
-        .set({date: new Date()})
+        .set({latest_message: new Date()})
         .where("id = :id", {id: session_id})
         .execute();
     }
