@@ -40,4 +40,12 @@ export class ScheduleNotifyRepository{
         return answer;
     }
 
+    public async changeMessageByScheduleId(scheduleId: uuidv4, message: string): Promise<void>{
+        await createQueryBuilder().
+        update(ScheduleNotify).
+        set({message: message}).
+        where("schedule_id = :schedule_id", {schedule_id: scheduleId}).
+        execute();
+    }
+
 }

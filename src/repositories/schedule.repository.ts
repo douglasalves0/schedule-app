@@ -3,6 +3,7 @@ import { ScheduleDto } from "src/dtos/schedule.dto";
 import { createQueryBuilder } from "typeorm";
 import { v4 as uuidv4} from 'uuid';
 import { SessionRepository } from "./session.repository";
+import { showDate } from "src/utils/functions";
 
 export class ScheduleRepository{
 
@@ -49,7 +50,6 @@ export class ScheduleRepository{
         where("schedule.code = :code",{code:code}).
         andWhere("schedule.status = :status",{status: "pending"}).
         execute();
-        console.log(answer);
         const sessionRepo = new SessionRepository;
         for(var i=0;i<answer.length;i++){
             const sessionId = answer[i].session_id;
@@ -60,6 +60,16 @@ export class ScheduleRepository{
             }
         }
         return undefined;
+    }
+
+    public async changeDateById(scheduleId: uuidv4, date: Date): Promise<void>{
+        console.log(date);
+        console.log(showDate(date));
+        await createQueryBuilder().
+        update(Schedule).
+        set({date: date}).
+        where("id = :id", {id: scheduleId}).
+        execute();
     }
 
 }

@@ -2,12 +2,12 @@ import { MessageDto } from 'src/dtos/message.dto';
 import { Message } from 'src/services/interfaces/message.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
-import { ChoiceNotificationMessage, ValidDateNeeded } from 'src/utils/constants';
+import { TypeNewMessage, ValidDateNeeded } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
 
-export class HandleCreateNotification implements Message{
+export class HandleTypeNewDate implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
-        
+
         const sessionMessageRepo = new SessionMessageRepository;
 
         const userNumber = message.from;
@@ -49,11 +49,11 @@ export class HandleCreateNotification implements Message{
             date: new Date(),
             direction: "out",
             from: botNumber,
-            message: ChoiceNotificationMessage,
+            message: TypeNewMessage,
             session_id: sessionId,
             to: userNumber
         });
-        console.log("Mensagem do bot:\n" + ChoiceNotificationMessage);
+        console.log("Mensagem do bot:\n" + TypeNewMessage);
 
     }
 }

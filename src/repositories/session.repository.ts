@@ -31,7 +31,7 @@ export class SessionRepository{
         return answer;
     }
 
-    public async updateDateById(session_id: uuidv4){
+    public async updateDateById(session_id: uuidv4): Promise<void>{
         await createQueryBuilder()
         .update(Session)
         .set({latest_message: new Date()})

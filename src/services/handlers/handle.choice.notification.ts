@@ -3,7 +3,7 @@ import { Message } from 'src/services/interfaces/message.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
 import { ConfirmNotificationMessage } from 'src/utils/constants';
-import { checkDate, delay } from 'src/utils/functions';
+import { checkDate, delay, showDate } from 'src/utils/functions';
 
 export class HandleChoiceNotification implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -17,7 +17,7 @@ export class HandleChoiceNotification implements Message{
         var answer = await sessionMessageRepo.findKthLatestMessageFromUser(userNumber, 1);
         const userDateMessage = answer[0];
         const userWantedDate = new Date(checkDate(userDateMessage.message));
-        var botMessage = `Informações da notificação:\nData: ${userWantedDate.toLocaleString()}\nMensagem: ${userMessage}`;
+        var botMessage = `Informações da notificação:\nData: ${ showDate(userWantedDate) }\nMensagem: ${userMessage}`;
 
         await sessionMessageRepo.save({
             date: new Date(),
