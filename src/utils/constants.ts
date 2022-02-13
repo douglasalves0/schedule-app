@@ -9,9 +9,11 @@ export const ConfirmNotificationMessage = "Digite 1 para confirmar ou 2 para edi
 //choice 3
 export const NeedScheduleCode = "Digite o código do agendamento que deseja alterar:";
 export const ContinueEditing = "Digite 1 para confirmar ou 2 para cancelar a edição";
+export const TypeNewDate = "Informe qual o novo horário para a notificação, no seguinte formato\nDia/Mes/Ano Hora:minuto.\nEx: 31/01/2022 20:00";
 
 //default messages
 export const OnlyNumbersAllowed = "São aceitos apenas números válidos!";
 export const ValidDateNeeded = "Uma data válida é necessária!";
 export const SucessSchedule = "Seu agendamento foi realizado com sucesso!";
 export const NotFoundSchedule = "Você não tem agendamentos pendentes com este código!";
+export const OperationCanceled = "Operação cancelada!";

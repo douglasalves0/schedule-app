@@ -1,6 +1,6 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
-import { ChoiceNotificationMessage, ConfirmNotificationMessage, CreateNotificationMessage, NeedScheduleCode, WelcomeMessage } from "src/utils/constants";
+import { ChoiceNotificationMessage, ConfirmNotificationMessage, ContinueEditing, CreateNotificationMessage, NeedScheduleCode, WelcomeMessage } from "src/utils/constants";
 import { HandleCreateNotification } from "./handlers/handle.create.notification";
 import { DefaultHandler } from "./handlers/handle.default";
 import { HandleNewSession } from "./handlers/handle.new.session";
@@ -10,6 +10,7 @@ import { HandleConfirmNotification } from "./handlers/handle.confirm.notificatio
 import { SessionRepository } from "src/repositories/session.repository";
 import { difTime } from "src/utils/functions";
 import { HandleNeedScheduleCode } from "./handlers/handle.need.schedule.code";
+import { HandleContinueEditing } from "./handlers/handle.continue.editing";
 
 export class HandleMessage{
     public async handle(message: MessageDto){
@@ -64,6 +65,7 @@ export class HandleMessage{
         const confirmNotificationHandler = new HandleConfirmNotification();
 
         const needScheduleCodeHandler = new HandleNeedScheduleCode;
+        const ContinueEditingHandler = new HandleContinueEditing;
 
         switch (latest.message){
             case WelcomeMessage:
@@ -81,8 +83,10 @@ export class HandleMessage{
             case NeedScheduleCode:
                 needScheduleCodeHandler.handle(message, sessionId);
                 break;
+            case ContinueEditing:
+                ContinueEditingHandler.handle(message, sessionId);
+                break;
             default:
-                console.log("Tratamento padrão");
                 defaultHandler.handle(message, sessionId);
                 break;
         }
