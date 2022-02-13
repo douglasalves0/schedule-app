@@ -5,7 +5,7 @@ import { v4 as uuidv4} from "uuid";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ContinueEditing, NotFoundSchedule } from "src/utils/constants";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
-import { delay } from "src/utils/functions";
+import { delay, showDate } from "src/utils/functions";
 
 export class HandleNeedScheduleCode implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4){
@@ -37,7 +37,7 @@ export class HandleNeedScheduleCode implements Message{
         var botMessage = "";
         botMessage += "Agendamento encontrado:\n";
         botMessage += "Mensagem: " + scheduledMessage + "\n";
-        botMessage += "Agendado para: " + schedule.date + "\n";
+        botMessage += "Agendado para: " + showDate(schedule.date) + "\n";
 
         await sessionMessageRepo.save({
             date: new Date,

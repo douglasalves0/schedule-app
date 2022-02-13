@@ -8,7 +8,7 @@ import { HandleWelcomeMessage } from "./handlers/handle.welcome.message";
 import { HandleChoiceNotification } from "./handlers/handle.choice.notification";
 import { HandleConfirmNotification } from "./handlers/handle.confirm.notification";
 import { SessionRepository } from "src/repositories/session.repository";
-import { difTime } from "src/utils/functions";
+import { difTime, showDate } from "src/utils/functions";
 import { HandleNeedScheduleCode } from "./handlers/handle.need.schedule.code";
 import { HandleContinueEditing } from "./handlers/handle.continue.editing";
 

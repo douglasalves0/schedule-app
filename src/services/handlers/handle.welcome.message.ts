@@ -6,6 +6,7 @@ import { CreateNotificationMessage, NeedScheduleCode, OnlyNumbersAllowed } from 
 import { v4 as uuidv4} from "uuid";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
+import { showDate } from "src/utils/functions";
 
 export class HandleWelcomeMessage implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4){
@@ -30,7 +31,7 @@ export class HandleWelcomeMessage implements Message{
                     const scheduleMessage = (await scheduleNotifyRepo.findByScheduleId(idSchedule))[0].message;
                     botMessage += "Código: " + answer[i].code + "\n";
                     botMessage += "Mensagem: " + scheduleMessage + "\n";
-                    botMessage += "Agendada para: " + answer[i].date + "\n\n";
+                    botMessage += "Agendada para: " + showDate(answer[i].date) + "\n\n";
                 }
                 await sessionMessageRepo.save({
                     date: new Date,

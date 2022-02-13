@@ -83,3 +83,32 @@ export function delay(ms: number) {
 export function difTime(date1: Date, date2: Date){//gets the difference between two dates in minutes
     return (date1.getTime() - date2.getTime()) / 1000 / 60;
 }
+
+export function showDate(date: Date): string{
+    
+    var answer = "";
+    
+    var day = String(date.getDate());
+    var month = String(date.getMonth() + 1);
+    var year = String(date.getFullYear());
+    
+    var hour = String(date.getHours());
+    var minute = String(date.getMinutes());
+
+    if(day.length == 1){
+        day = "0"+day;
+    }
+    if(month.length == 1){
+        month = "0"+month;
+    }
+    if(hour.length == 1){
+        hour = "0"+hour;
+    }
+    if(minute.length == 1){
+        minute = "0"+minute;
+    }
+
+    answer += day + "/" + month + "/" + year + " " + hour + ":" + minute;
+    return answer;
+
+}
