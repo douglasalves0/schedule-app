@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
 import { OnlyNumbersAllowed, OperationCanceled, TypeNewDate } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
+import { sendMessage } from 'src/api/send.message.api';
 
 export class HandleContinueEditing implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -23,7 +24,8 @@ export class HandleContinueEditing implements Message{
                 message: OperationCanceled,
                 session_id: sessionId
             });
-            console.log("Mensagem do bot: " + OperationCanceled);
+            sendMessage(userNumber, OperationCanceled);
+            //console.log("Mensagem do bot: " + OperationCanceled);
             return ;
         }else if(userMessage == "1"){
             await sessionMessageRepo.save({
@@ -34,7 +36,8 @@ export class HandleContinueEditing implements Message{
                 message: TypeNewDate,
                 session_id: sessionId
             });
-            console.log("Mensagem do bot: " + TypeNewDate);
+            //console.log("Mensagem do bot: " + TypeNewDate);
+            sendMessage(userNumber, TypeNewDate);
             return ;
         }
 
@@ -46,6 +49,7 @@ export class HandleContinueEditing implements Message{
             message: OnlyNumbersAllowed,
             session_id: sessionId
         });
-        console.log("Mensagem do bot: " + OnlyNumbersAllowed);
+        //console.log("Mensagem do bot: " + OnlyNumbersAllowed);
+        sendMessage(userNumber, OnlyNumbersAllowed);
     }
 }

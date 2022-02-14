@@ -1,16 +1,17 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { Message } from "../interfaces/message.interface";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
+import { SessionRepository } from "src/repositories/session.repository";
 import { v4 as uuidv4} from "uuid";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
-import { ContinueEditing, NotFoundSchedule } from "src/utils/constants";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
-import { delay, showDate } from "src/utils/functions";
+import { DeletedSchedule, NotFoundSchedule } from "src/utils/constants";
 import { sendMessage } from "src/api/send.message.api";
 
-export class HandleNeedScheduleCode implements Message{
+export class HandleWantedScheduleCode implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4){
 
+        const sessionRepo = new SessionRepository;
         const sessionMessageRepo = new SessionMessageRepository;
         const scheduleRepo = new ScheduleRepository;
         const scheduleNotifyRepo = new ScheduleNotifyRepository;
@@ -19,12 +20,12 @@ export class HandleNeedScheduleCode implements Message{
         const botNumber = message.to;
         const userMessage = message.content;
 
-        const schedule = await scheduleRepo.findPendingSchedulesByCodeByUserNumber(userNumber, userMessage);
-        
+        const schedule = await scheduleRepo.findPendingSchedulesByCodeByUserNumber(userNumber, userMessage);       
+
         if(schedule == undefined){
             await sessionMessageRepo.save({
-                date: new Date,
-                direction: 'out',
+                date: new Date(),
+                direction: "out",
                 from: botNumber,
                 to: userNumber,
                 message: NotFoundSchedule,
@@ -32,39 +33,18 @@ export class HandleNeedScheduleCode implements Message{
             });
             //console.log(NotFoundSchedule);
             sendMessage(userNumber, NotFoundSchedule);
-            return;
+            return ;
         }
 
-        const scheduledMessage = (await scheduleNotifyRepo.findByScheduleId(schedule.id))[0].message;
-        var botMessage = "";
-        botMessage += "Agendamento encontrado:\n";
-        botMessage += "Mensagem: " + scheduledMessage + "\n";
-        botMessage += "Agendado para: " + showDate(schedule.date) + "\n";
-
         await sessionMessageRepo.save({
-            date: new Date,
-            direction: 'out',
+            date: new Date(),
+            direction: "out",
             from: botNumber,
             to: userNumber,
-            message: botMessage,
+            message: DeletedSchedule,
             session_id: sessionId
         });
-
-        await delay(1);
-
-        await sessionMessageRepo.save({
-            date: new Date,
-            direction: 'out',
-            from: botNumber,
-            to: userNumber,
-            message: ContinueEditing,
-            session_id: sessionId
-        });
-
-        //console.log(botMessage + ContinueEditing);
-        sendMessage(userNumber, botMessage);
-        sendMessage(userNumber, ContinueEditing);
-        return;
-
+        //console.log(DeletedSchedule);
+        sendMessage(userNumber, DeletedSchedule);
     }
 }

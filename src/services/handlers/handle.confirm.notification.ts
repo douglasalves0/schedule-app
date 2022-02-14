@@ -6,6 +6,7 @@ import { CreateNotificationMessage, OnlyNumbersAllowed, SucessSchedule } from 's
 import { ScheduleRepository } from 'src/repositories/schedule.repository';
 import { ScheduleNotifyRepository } from 'src/repositories/schedule.notify.repository';
 import { getCode, checkDate } from 'src/utils/functions';
+import { sendMessage } from 'src/api/send.message.api';
 
 export class HandleConfirmNotification implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -30,7 +31,8 @@ export class HandleConfirmNotification implements Message{
                 message: CreateNotificationMessage,
                 session_id: sessionId
             });
-            console.log("Mensagem do bot: " + CreateNotificationMessage);
+            //console.log("Mensagem do bot: " + CreateNotificationMessage);
+            sendMessage(userNumber, CreateNotificationMessage);
             return ;
         }else if(userMessage == "1"){
             await sessionMessageRepo.save({
@@ -56,7 +58,8 @@ export class HandleConfirmNotification implements Message{
                 notify_number: userNumber,
                 schedule_id: scheduleId
             });
-            console.log("Mensagem do bot: " + SucessSchedule);
+            //console.log("Mensagem do bot: " + SucessSchedule);
+            sendMessage(userNumber, SucessSchedule);
             return ;
         }
 
@@ -68,7 +71,8 @@ export class HandleConfirmNotification implements Message{
             message: OnlyNumbersAllowed,
             session_id: sessionId
         });
-        console.log("Mensagem do bot: " + OnlyNumbersAllowed);
+        //console.log("Mensagem do bot: " + OnlyNumbersAllowed);
+        sendMessage(userNumber, OnlyNumbersAllowed);
 
     }
 

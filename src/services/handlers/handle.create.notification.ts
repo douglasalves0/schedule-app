@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
 import { ChoiceNotificationMessage, ValidDateNeeded } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
+import { sendMessage } from 'src/api/send.message.api';
 
 export class HandleCreateNotification implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -25,7 +26,8 @@ export class HandleCreateNotification implements Message{
                 session_id: sessionId,
                 to: userNumber
             });
-            console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            sendMessage(userNumber, ValidDateNeeded);
             return;
         }
 
@@ -41,7 +43,8 @@ export class HandleCreateNotification implements Message{
                 session_id: sessionId,
                 to: userNumber
             });
-            console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            sendMessage(userNumber, ValidDateNeeded);
             return;
         }
 
@@ -53,7 +56,7 @@ export class HandleCreateNotification implements Message{
             session_id: sessionId,
             to: userNumber
         });
-        console.log("Mensagem do bot:\n" + ChoiceNotificationMessage);
-
+        //console.log("Mensagem do bot:\n" + ChoiceNotificationMessage);
+        sendMessage(userNumber, ChoiceNotificationMessage);
     }
 }

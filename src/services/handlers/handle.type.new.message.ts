@@ -6,6 +6,7 @@ import { SessionMessageRepository } from "src/repositories/session.message.repos
 import { SucessSchedule } from "src/utils/constants";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
+import { sendMessage } from "src/api/send.message.api";
 
 export class HandleTypeNewMessage implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -50,7 +51,11 @@ export class HandleTypeNewMessage implements Message{
         await scheduleRepo.changeDateById(givenCodeScheduleId, userWantedDate);
         await scheduleNotifyRepo.changeMessageByScheduleId(givenCodeScheduleId, userMessage);
 
-        console.log("Mensagem do bot:\n" + botMessage);
-        console.log("Mensagem do bot:\n" + SucessSchedule);
+        //console.log("Mensagem do bot:\n" + botMessage);
+        //console.log("Mensagem do bot:\n" + SucessSchedule);
+        
+        sendMessage(userNumber, botMessage);
+        sendMessage(userNumber, SucessSchedule);
+
     }
 }

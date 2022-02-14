@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
 import { TypeNewMessage, ValidDateNeeded } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
+import { sendMessage } from 'src/api/send.message.api';
 
 export class HandleTypeNewDate implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -25,7 +26,8 @@ export class HandleTypeNewDate implements Message{
                 session_id: sessionId,
                 to: userNumber
             });
-            console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            sendMessage(userNumber, ValidDateNeeded);
+            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
             return;
         }
 
@@ -41,7 +43,8 @@ export class HandleTypeNewDate implements Message{
                 session_id: sessionId,
                 to: userNumber
             });
-            console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            sendMessage(userNumber, ValidDateNeeded);
             return;
         }
 
@@ -53,7 +56,8 @@ export class HandleTypeNewDate implements Message{
             session_id: sessionId,
             to: userNumber
         });
-        console.log("Mensagem do bot:\n" + TypeNewMessage);
+        sendMessage(userNumber, TypeNewMessage);
+        //console.log("Mensagem do bot:\n" + TypeNewMessage);
 
     }
 }

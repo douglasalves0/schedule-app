@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
 import { ConfirmNotificationMessage } from 'src/utils/constants';
 import { checkDate, delay, showDate } from 'src/utils/functions';
+import { sendMessage } from 'src/api/send.message.api';
 
 export class HandleChoiceNotification implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -39,9 +40,10 @@ export class HandleChoiceNotification implements Message{
             session_id: sessionId
         });
 
-        console.log("Mensagem do bot:\n" + botMessage);
-        console.log("Mensagem do bot:\n" + ConfirmNotificationMessage);
-
+        //console.log("Mensagem do bot:\n" + botMessage);
+        //console.log("Mensagem do bot:\n" + ConfirmNotificationMessage);
+        sendMessage(userNumber, botMessage);
+        sendMessage(userNumber, ConfirmNotificationMessage);
     }
 
 }
