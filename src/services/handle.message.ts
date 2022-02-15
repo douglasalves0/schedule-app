@@ -9,7 +9,9 @@ import { execStrategy } from "./strategies/strategies";
 export class HandleMessage{
     public async handle(message: MessageDto){
 
-        if(message.status != "RECEIVED"){
+        //console.log(message);
+
+        if(message.status != "RECEIVED" && message.status != "RESPONDIDA"){
             return;
         }
 

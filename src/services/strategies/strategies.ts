@@ -35,4 +35,4 @@ export async function execStrategy(message: string, sessionId: uuidv4, messageDt
     handler.handle(messageDto, sessionId);
 }
 
-var strategies = new Map<string, any>();
+var strategies = new Map();
