@@ -20,11 +20,10 @@ export async function handleJob(){
         const userNumber = scheduleNotify.notify_number;
         const message = scheduleNotify.message;
         console.log(`Sending message to ${userNumber} of schedule ${scheduleId}...`);
-        sendMessage(userNumber, "*Notificação da Moorse*\n\n"+message);
+        sendMessage(userNumber, "*Notificação da Moorse 👨‍💻*\n\n"+message);
         scheduleRepo.markAsExecutedSchedulesEarlierThanNow(scheduleId);
     }
-
-    console.log("Closing old sessions...");
+    
     sessionRepo.closeOldSessions(); 
 
 }

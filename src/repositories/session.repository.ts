@@ -1,5 +1,6 @@
 import { SessionDto } from "src/dtos/session.dto";
 import { Session } from "src/models/session.entity";
+import { showDate } from "src/utils/functions";
 import { createQueryBuilder } from "typeorm";
 import { v4 as uuidv4} from 'uuid';
 
@@ -40,12 +41,13 @@ export class SessionRepository{
     }
 
     public async closeOldSessions(): Promise<void>{
-        var nextOneHour = new Date();
-        nextOneHour.setTime(nextOneHour.getTime() + (1000 * 60 * 60));
+        var lastOneHour = new Date();
+        lastOneHour.setTime(lastOneHour.getTime() - (1000 * 60 * 60));
+        console.log(showDate(lastOneHour));
         await createQueryBuilder()
         .update(Session)
         .set({status: "closed"})
-        .where("latest_message >= :date", {date: nextOneHour})
+        .where("latest_message < :date", {date: lastOneHour})
         .execute();
     }
 
