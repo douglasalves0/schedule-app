@@ -7,8 +7,9 @@ import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
 import { DeletedSchedule, NotFoundSchedule } from "src/utils/constants";
 import { sendMessage } from "src/api/send.message.api";
+import { Saver } from "./save.session.message.method";
 
-export class HandleWantedScheduleCode implements Message{
+export class HandleWantedScheduleCode extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4){
 
         const sessionRepo = new SessionRepository;
@@ -23,28 +24,11 @@ export class HandleWantedScheduleCode implements Message{
         const schedule = await scheduleRepo.findPendingSchedulesByCodeByUserNumber(userNumber, userMessage);       
 
         if(schedule == undefined){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                to: userNumber,
-                message: NotFoundSchedule,
-                session_id: sessionId
-            });
-            //console.log(NotFoundSchedule);
+            await this.saveMessage(botNumber, userNumber, NotFoundSchedule, sessionId);
             sendMessage(userNumber, NotFoundSchedule);
             return ;
         }
-
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            to: userNumber,
-            message: DeletedSchedule,
-            session_id: sessionId
-        });
-        //console.log(DeletedSchedule);
+        await this.saveMessage(botNumber, userNumber, DeletedSchedule, sessionId);
         sendMessage(userNumber, DeletedSchedule);
     }
 }

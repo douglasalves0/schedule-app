@@ -6,8 +6,9 @@ import { ChoiceNotificationMessage } from '../strategies/strategies.constants';
 import { ValidDateNeeded } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
+import { Saver } from './save.session.message.method';
 
-export class HandleCreateNotification implements Message{
+export class HandleCreateNotification extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
         
         const sessionMessageRepo = new SessionMessageRepository;
@@ -19,15 +20,7 @@ export class HandleCreateNotification implements Message{
         const date = checkDate(givenDate);
 
         if(date == undefined){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                message: ValidDateNeeded,
-                session_id: sessionId,
-                to: userNumber
-            });
-            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            await this.saveMessage(botNumber, userNumber, ValidDateNeeded, sessionId);
             sendMessage(userNumber, ValidDateNeeded);
             return;
         }
@@ -36,28 +29,12 @@ export class HandleCreateNotification implements Message{
         var userDate = new Date(date);
 
         if(now >= userDate){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                message: ValidDateNeeded,
-                session_id: sessionId,
-                to: userNumber
-            });
-            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            await this.saveMessage(botNumber, userNumber, ValidDateNeeded, sessionId);
             sendMessage(userNumber, ValidDateNeeded);
             return;
         }
 
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            message: ChoiceNotificationMessage,
-            session_id: sessionId,
-            to: userNumber
-        });
-        //console.log("Mensagem do bot:\n" + ChoiceNotificationMessage);
+        await this.saveMessage(botNumber, userNumber, ChoiceNotificationMessage, sessionId);
         sendMessage(userNumber, ChoiceNotificationMessage);
     }
 }

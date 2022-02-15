@@ -4,8 +4,9 @@ import { WelcomeMessage } from '../strategies/strategies.constants';
 import { Message } from "../interfaces/message.interface";
 import { v4 as uuidv4} from 'uuid';
 import { sendMessage } from "src/api/send.message.api";
+import { Saver } from "./save.session.message.method";
 
-export class DefaultHandler implements Message{
+export class DefaultHandler extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
 
         const sessionMessageRepo = new SessionMessageRepository;
@@ -13,15 +14,8 @@ export class DefaultHandler implements Message{
         const userNumber = message.from;
         const botNumber = message.to;
 
-        await sessionMessageRepo.save({
-            session_id: sessionId,
-            to: userNumber,
-            from: botNumber,
-            message: WelcomeMessage,
-            direction: "out",
-            date: new Date()
-        });
-        //console.log("Mensagem enviada pelo bot:\n" + WelcomeMessage);
+        await this.saveMessage(botNumber, userNumber, WelcomeMessage, sessionId);
         sendMessage(userNumber, WelcomeMessage);
+        
     }
 }

@@ -26,8 +26,8 @@ export async function loadStrategies(){
     strategies.set(WantedScheduleCode, new HandleWantedScheduleCode());
 }
 
-export async function execStrategy(messageDto: MessageDto, sessionId: uuidv4){
-    const usedStrategy = strategies.get(messageDto.content);
+export async function execStrategy(message: string, sessionId: uuidv4, messageDto: MessageDto){
+    const usedStrategy = strategies.get(message);
     var handler = new DefaultHandler();
     if(usedStrategy != undefined){
         handler = usedStrategy;
@@ -35,4 +35,4 @@ export async function execStrategy(messageDto: MessageDto, sessionId: uuidv4){
     handler.handle(messageDto, sessionId);
 }
 
-var strategies = new Map<string, Message>();
+var strategies = new Map<string, any>();

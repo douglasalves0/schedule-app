@@ -8,8 +8,9 @@ import { ScheduleRepository } from 'src/repositories/schedule.repository';
 import { ScheduleNotifyRepository } from 'src/repositories/schedule.notify.repository';
 import { getCode, checkDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
+import { Saver } from './save.session.message.method';
 
-export class HandleConfirmNotification implements Message{
+export class HandleConfirmNotification extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
         
         const sessionMessageRepo = new SessionMessageRepository;
@@ -24,26 +25,12 @@ export class HandleConfirmNotification implements Message{
         const userNotifyMessage = (await sessionMessageRepo.findKthLatestMessageFromUser(userNumber, 1))[0].message;
 
         if(userMessage == "2"){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                to: userNumber,
-                message: CreateNotificationMessage,
-                session_id: sessionId
-            });
-            //console.log("Mensagem do bot: " + CreateNotificationMessage);
+            await this.saveMessage(botNumber, userNumber, CreateNotificationMessage, sessionId);
             sendMessage(userNumber, CreateNotificationMessage);
             return ;
-        }else if(userMessage == "1"){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                to: userNumber,
-                message: SucessSchedule,
-                session_id: sessionId
-            });
+        }
+        if(userMessage == "1"){
+            await this.saveMessage(botNumber, userNumber, SucessSchedule, sessionId);
             const scheduleId = await scheduleRepo.save({
                 created: new Date(),
                 updated: new Date(),
@@ -59,20 +46,10 @@ export class HandleConfirmNotification implements Message{
                 notify_number: userNumber,
                 schedule_id: scheduleId
             });
-            //console.log("Mensagem do bot: " + SucessSchedule);
             sendMessage(userNumber, SucessSchedule);
             return ;
         }
-
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            to: userNumber,
-            message: OnlyNumbersAllowed,
-            session_id: sessionId
-        });
-        //console.log("Mensagem do bot: " + OnlyNumbersAllowed);
+        await this.saveMessage(botNumber, userNumber, OnlyNumbersAllowed, sessionId);
         sendMessage(userNumber, OnlyNumbersAllowed);
 
     }

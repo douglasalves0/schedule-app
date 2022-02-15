@@ -8,8 +8,9 @@ import { NotFoundSchedule } from "src/utils/constants";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
 import { delay, showDate } from "src/utils/functions";
 import { sendMessage } from "src/api/send.message.api";
+import { Saver } from "./save.session.message.method";
 
-export class HandleNeedScheduleCode implements Message{
+export class HandleNeedScheduleCode extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4){
 
         const sessionMessageRepo = new SessionMessageRepository;
@@ -23,15 +24,7 @@ export class HandleNeedScheduleCode implements Message{
         const schedule = await scheduleRepo.findPendingSchedulesByCodeByUserNumber(userNumber, userMessage);
         
         if(schedule == undefined){
-            await sessionMessageRepo.save({
-                date: new Date,
-                direction: 'out',
-                from: botNumber,
-                to: userNumber,
-                message: NotFoundSchedule,
-                session_id: sessionId
-            });
-            //console.log(NotFoundSchedule);
+            await this.saveMessage(botNumber, userNumber, NotFoundSchedule, sessionId);
             sendMessage(userNumber, NotFoundSchedule);
             return;
         }
@@ -42,29 +35,11 @@ export class HandleNeedScheduleCode implements Message{
         botMessage += "Mensagem: " + scheduledMessage + "\n";
         botMessage += "Agendado para: " + showDate(schedule.date) + "\n";
 
-        await sessionMessageRepo.save({
-            date: new Date,
-            direction: 'out',
-            from: botNumber,
-            to: userNumber,
-            message: botMessage,
-            session_id: sessionId
-        });
-
+        await this.saveMessage(botNumber, userNumber, botMessage, sessionId);
         await delay(1);
+        await this.saveMessage(botNumber, userNumber, ContinueEditing, sessionId);
 
-        await sessionMessageRepo.save({
-            date: new Date,
-            direction: 'out',
-            from: botNumber,
-            to: userNumber,
-            message: ContinueEditing,
-            session_id: sessionId
-        });
-
-        //console.log(botMessage + ContinueEditing);
-        sendMessage(userNumber, botMessage);
-        sendMessage(userNumber, ContinueEditing);
+        sendMessage(userNumber, botMessage + "\n" + ContinueEditing);
         return;
 
     }

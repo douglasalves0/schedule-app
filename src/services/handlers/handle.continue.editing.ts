@@ -5,10 +5,10 @@ import { SessionMessageRepository } from 'src/repositories/session.message.repos
 
 import { TypeNewDate } from '../strategies/strategies.constants';
 import { OnlyNumbersAllowed, OperationCanceled } from 'src/utils/constants';
-import { checkDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
+import { Saver } from './save.session.message.method';
 
-export class HandleContinueEditing implements Message{
+export class HandleContinueEditing extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
         
         const sessionMessageRepo = new SessionMessageRepository;
@@ -18,40 +18,17 @@ export class HandleContinueEditing implements Message{
         const userMessage = message.content;
 
         if(userMessage == "2"){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                to: userNumber,
-                message: OperationCanceled,
-                session_id: sessionId
-            });
+            await this.saveMessage(botNumber, userNumber, OperationCanceled, sessionId);
             sendMessage(userNumber, OperationCanceled);
-            //console.log("Mensagem do bot: " + OperationCanceled);
             return ;
-        }else if(userMessage == "1"){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                to: userNumber,
-                message: TypeNewDate,
-                session_id: sessionId
-            });
-            //console.log("Mensagem do bot: " + TypeNewDate);
+        }
+        if(userMessage == "1"){
+            await this.saveMessage(botNumber, userNumber, TypeNewDate, sessionId);
             sendMessage(userNumber, TypeNewDate);
             return ;
         }
-
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            to: userNumber,
-            message: OnlyNumbersAllowed,
-            session_id: sessionId
-        });
-        //console.log("Mensagem do bot: " + OnlyNumbersAllowed);
+        
+        this.saveMessage(botNumber, userNumber, OnlyNumbersAllowed, sessionId);
         sendMessage(userNumber, OnlyNumbersAllowed);
     }
 }

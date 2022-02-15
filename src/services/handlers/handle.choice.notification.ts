@@ -5,8 +5,9 @@ import { SessionMessageRepository } from 'src/repositories/session.message.repos
 import { ConfirmNotificationMessage } from '../strategies/strategies.constants';
 import { checkDate, delay, showDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
+import { Saver } from './save.session.message.method';
 
-export class HandleChoiceNotification implements Message{
+export class HandleChoiceNotification extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
         
         const sessionMessageRepo = new SessionMessageRepository;
@@ -20,28 +21,10 @@ export class HandleChoiceNotification implements Message{
         const userWantedDate = new Date(checkDate(userDateMessage.message));
         var botMessage = `Informações da notificação:\nData: ${ showDate(userWantedDate) }\nMensagem: ${userMessage}`;
 
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            to: userNumber,
-            message: botMessage,
-            session_id: sessionId
-        });
-
+        await this.saveMessage(botNumber, userNumber, botMessage, sessionId);
         await delay(1);
+        await this.saveMessage(botNumber, userNumber, ConfirmNotificationMessage, sessionId);
 
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            to: userNumber,
-            message: ConfirmNotificationMessage,
-            session_id: sessionId
-        });
-
-        //console.log("Mensagem do bot:\n" + botMessage);
-        //console.log("Mensagem do bot:\n" + ConfirmNotificationMessage);
         sendMessage(userNumber, botMessage);
         sendMessage(userNumber, ConfirmNotificationMessage);
     }

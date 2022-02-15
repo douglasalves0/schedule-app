@@ -52,7 +52,7 @@ export class HandleMessage{
         });
 
         await sessionRepo.updateDateById(sessionId);
-        execStrategy(message, sessionId);
+        execStrategy(latest.message, sessionId, message);
    
     }
 }

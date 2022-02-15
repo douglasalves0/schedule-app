@@ -6,8 +6,9 @@ import { TypeNewMessage } from '../strategies/strategies.constants';
 import { ValidDateNeeded } from 'src/utils/constants'; 
 import { checkDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
+import { Saver } from './save.session.message.method';
 
-export class HandleTypeNewDate implements Message{
+export class HandleTypeNewDate extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
 
         const sessionMessageRepo = new SessionMessageRepository;
@@ -19,16 +20,8 @@ export class HandleTypeNewDate implements Message{
         const date = checkDate(givenDate);
 
         if(date == undefined){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                message: ValidDateNeeded,
-                session_id: sessionId,
-                to: userNumber
-            });
+            await this.saveMessage(botNumber, userNumber, ValidDateNeeded, sessionId);
             sendMessage(userNumber, ValidDateNeeded);
-            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
             return;
         }
 
@@ -36,29 +29,13 @@ export class HandleTypeNewDate implements Message{
         var userDate = new Date(date);
 
         if(now >= userDate){
-            await sessionMessageRepo.save({
-                date: new Date(),
-                direction: "out",
-                from: botNumber,
-                message: ValidDateNeeded,
-                session_id: sessionId,
-                to: userNumber
-            });
-            //console.log("Mensagem do bot:\n" + ValidDateNeeded);
+            await this.saveMessage(botNumber, userNumber, ValidDateNeeded, sessionId);
             sendMessage(userNumber, ValidDateNeeded);
             return;
         }
 
-        await sessionMessageRepo.save({
-            date: new Date(),
-            direction: "out",
-            from: botNumber,
-            message: TypeNewMessage,
-            session_id: sessionId,
-            to: userNumber
-        });
+        await this.saveMessage(botNumber, userNumber, TypeNewMessage, sessionId);
         sendMessage(userNumber, TypeNewMessage);
-        //console.log("Mensagem do bot:\n" + TypeNewMessage);
 
     }
 }
