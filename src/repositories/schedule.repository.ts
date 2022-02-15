@@ -63,12 +63,29 @@ export class ScheduleRepository{
     }
 
     public async changeDateById(scheduleId: uuidv4, date: Date): Promise<void>{
-        console.log(date);
-        console.log(showDate(date));
         await createQueryBuilder().
         update(Schedule).
         set({date: date}).
         where("id = :id", {id: scheduleId}).
+        execute();
+    }
+
+    public async findSchedulesEarlierThanNow(): Promise<Schedule[]>{
+        const answer = await createQueryBuilder().
+        select("*").
+        from(Schedule, "schedule").
+        where("date <= :date",{date:new Date()}).
+        andWhere("status = :status",{status:"pending"}).
+        execute();
+        return answer;
+    }
+
+    public async markAsExecutedSchedulesEarlierThanNow(date: Date):Promise<void>{
+        await createQueryBuilder().
+        update(Schedule).
+        set({status: "executed"}).
+        where("date <= :date", {date: new Date()}).
+        andWhere("status = :status",{status:"pending"}).
         execute();
     }
 

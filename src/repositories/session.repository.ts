@@ -39,4 +39,14 @@ export class SessionRepository{
         .execute();
     }
 
+    public async closeOldSessions(): Promise<void>{
+        var nextOneHour = new Date();
+        nextOneHour.setTime(nextOneHour.getTime() + (1000 * 60 * 60));
+        await createQueryBuilder()
+        .update(Session)
+        .set({status: "closed"})
+        .where("latest_message >= :date", {date: nextOneHour})
+        .execute();
+    }
+
 }

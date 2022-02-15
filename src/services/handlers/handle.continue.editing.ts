@@ -2,7 +2,9 @@ import { MessageDto } from 'src/dtos/message.dto';
 import { Message } from 'src/services/interfaces/message.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
-import { OnlyNumbersAllowed, OperationCanceled, TypeNewDate } from 'src/utils/constants';
+
+import { TypeNewDate } from '../strategies/strategies.constants';
+import { OnlyNumbersAllowed, OperationCanceled } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
 

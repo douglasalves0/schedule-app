@@ -1,19 +1,10 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
-import { ChoiceNotificationMessage, ConfirmNotificationMessage, ContinueEditing, CreateNotificationMessage, NeedScheduleCode, TypeNewDate, WelcomeMessage, TypeNewMessage, WantedScheduleCode } from "src/utils/constants";
-import { HandleCreateNotification } from "./handlers/handle.create.notification";
 import { DefaultHandler } from "./handlers/handle.default";
 import { HandleNewSession } from "./handlers/handle.new.session";
-import { HandleWelcomeMessage } from "./handlers/handle.welcome.message";
-import { HandleChoiceNotification } from "./handlers/handle.choice.notification";
-import { HandleConfirmNotification } from "./handlers/handle.confirm.notification";
 import { SessionRepository } from "src/repositories/session.repository";
 import { difTime } from "src/utils/functions";
-import { HandleNeedScheduleCode } from "./handlers/handle.need.schedule.code";
-import { HandleContinueEditing } from "./handlers/handle.continue.editing";
-import { HandleTypeNewDate } from "./handlers/handle.type.new.date";
-import { HandleTypeNewMessage } from "./handlers/handle.type.new.message";
-import { HandleWantedScheduleCode } from "./handlers/handle.wanted.schedule.code";
+import { execStrategy } from "./strategies/strategies";
 
 export class HandleMessage{
     public async handle(message: MessageDto){
@@ -22,14 +13,14 @@ export class HandleMessage{
             return;
         }
 
-        console.log("New message received!!");
-
         const sessionMessageRepo = new SessionMessageRepository;
         const sessionRepo = new SessionRepository;
 
         const userNumber = message.from;
         const botNumber = message.to;
         const userMessage = message.content;
+
+        console.log(`New message: ${message.id}`);
 
         const answer = await sessionMessageRepo.findKthLatestMessageToUser(userNumber, 0);
 
@@ -61,57 +52,7 @@ export class HandleMessage{
         });
 
         await sessionRepo.updateDateById(sessionId);
-        
-        const welcomeHandler = new HandleWelcomeMessage;
-        
-        const defaultHandler = new DefaultHandler();
-        const createNotificationHandler = new HandleCreateNotification();
-        const choiceNotificationHandler = new HandleChoiceNotification();
-        const confirmNotificationHandler = new HandleConfirmNotification();
-
-        const needScheduleCodeHandler = new HandleNeedScheduleCode;
-        const continueEditingHandler = new HandleContinueEditing;
-        const typeNewDateHandler = new HandleTypeNewDate;
-        const typeNewMessageHandler = new HandleTypeNewMessage;
-
-        const wantedScheduleCodeHandler = new HandleWantedScheduleCode;
-
-        switch (latest.message){
-            case WelcomeMessage:
-                welcomeHandler.handle(message, sessionId);
-                break;
-                        
-            case CreateNotificationMessage:
-                createNotificationHandler.handle(message, sessionId);
-                break;
-            case ChoiceNotificationMessage:
-                choiceNotificationHandler.handle(message, sessionId);
-                break;
-            case ConfirmNotificationMessage:
-                confirmNotificationHandler.handle(message, sessionId);
-                break;
-
-            case NeedScheduleCode:
-                needScheduleCodeHandler.handle(message, sessionId);
-                break;
-            case ContinueEditing:
-                continueEditingHandler.handle(message, sessionId);
-                break;
-            case TypeNewDate:
-                typeNewDateHandler.handle(message, sessionId);
-                break;
-            case TypeNewMessage:
-                typeNewMessageHandler.handle(message, sessionId);
-                break;
-
-            case WantedScheduleCode:
-                wantedScheduleCodeHandler.handle(message, sessionId);
-                break;
-
-            default:
-                defaultHandler.handle(message, sessionId);
-                break;
-        }
+        execStrategy(message, sessionId);
    
     }
 }

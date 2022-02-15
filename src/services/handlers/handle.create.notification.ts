@@ -2,7 +2,8 @@ import { MessageDto } from 'src/dtos/message.dto';
 import { Message } from 'src/services/interfaces/message.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
-import { ChoiceNotificationMessage, ValidDateNeeded } from 'src/utils/constants';
+import { ChoiceNotificationMessage } from '../strategies/strategies.constants';
+import { ValidDateNeeded } from 'src/utils/constants';
 import { checkDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
 

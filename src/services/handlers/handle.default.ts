@@ -1,6 +1,6 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
-import { WelcomeMessage } from "src/utils/constants";
+import { WelcomeMessage } from '../strategies/strategies.constants';
 import { Message } from "../interfaces/message.interface";
 import { v4 as uuidv4} from 'uuid';
 import { sendMessage } from "src/api/send.message.api";

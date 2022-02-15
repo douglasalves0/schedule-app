@@ -2,7 +2,7 @@ import { MessageDto } from 'src/dtos/message.dto';
 import { Message } from 'src/services/interfaces/message.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { SessionMessageRepository } from 'src/repositories/session.message.repository';
-import { ConfirmNotificationMessage } from 'src/utils/constants';
+import { ConfirmNotificationMessage } from '../strategies/strategies.constants';
 import { checkDate, delay, showDate } from 'src/utils/functions';
 import { sendMessage } from 'src/api/send.message.api';
 

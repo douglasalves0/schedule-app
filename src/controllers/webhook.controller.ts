@@ -1,7 +1,5 @@
 import { Controller, Post, Body } from "@nestjs/common";
 import { MessageDto } from "src/dtos/message.dto";
-import { SessionMessageRepository } from "src/repositories/session.message.repository";
-import { SessionRepository } from "src/repositories/session.repository";
 import { HandleMessage } from "src/services/handle.message";
 
 @Controller('/webhooks')

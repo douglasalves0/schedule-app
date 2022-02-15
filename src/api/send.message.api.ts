@@ -2,7 +2,8 @@ import fetch from 'node-fetch';
 import { integration, moorseUrl, token } from 'src/utils/constants';
 
 export async function sendMessage(userNumber: string, message: string){
-    const options = {
+    console.log(`Mensagem do bot: ${message}`);
+    /*const options = {
         method: 'POST',
         headers: {
             Accept: 'application/json', 
@@ -17,5 +18,5 @@ export async function sendMessage(userNumber: string, message: string){
     const answer = await fetch(`${moorseUrl}/${integration}/send-message`, options)
     .then(response => response.json())
     .then(response => console.log(response))
-    .catch(err => console.error(err));
+    .catch(err => console.error(err));*/
 }
