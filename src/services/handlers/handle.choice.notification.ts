@@ -19,14 +19,13 @@ export class HandleChoiceNotification extends Saver implements Message{
         var answer = await sessionMessageRepo.findKthLatestMessageFromUser(userNumber, 1);
         const userDateMessage = answer[0];
         const userWantedDate = new Date(checkDate(userDateMessage.message));
-        var botMessage = `Informações da notificação:\nData: ${ showDate(userWantedDate) }\nMensagem: ${userMessage}`;
+        var botMessage = `Informações da notificação:\n\nData: ${ showDate(userWantedDate) }\nMensagem: ${userMessage}\n\n`;
 
         await this.saveMessage(botNumber, userNumber, botMessage, sessionId);
         await delay(1);
         await this.saveMessage(botNumber, userNumber, ConfirmNotificationMessage, sessionId);
 
-        sendMessage(userNumber, botMessage);
-        sendMessage(userNumber, ConfirmNotificationMessage);
+        sendMessage(userNumber, botMessage + ConfirmNotificationMessage);
     }
 
 }

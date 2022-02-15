@@ -16,6 +16,11 @@ export class HandleNewSession extends Saver implements Message{
         const userNumber = message.from;
         const botNumber = message.to;
         const userMessage = message.content;
+        var userName = message.contactUser.name;
+
+        if(userName == undefined){
+            userName = userNumber;
+        }
 
         const newSessionId = await sessionRepo.save({
             wa_user: userNumber,
@@ -31,7 +36,9 @@ export class HandleNewSession extends Saver implements Message{
             direction: "in",
             date: new Date()
         });
+        const greet = `Olá ${userName}, sou o MoorseBot, seu assistente virtual, em que posso te ajudar? 👨‍💻\n\n`;
+        await this.saveMessage(botNumber, userNumber, greet, newSessionId);
         await this.saveMessage(botNumber, userNumber, WelcomeMessage, newSessionId);
-        sendMessage(userNumber, WelcomeMessage);
+        sendMessage(userNumber, greet + WelcomeMessage);
     }
 }
