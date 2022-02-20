@@ -61,7 +61,6 @@ export function checkDate(date: string): string{
     }
     const MonthDayYearDate=strNumber2+"/"+strNumber1+"/"+strNumber3+" "+strNumber4+":"+strNumber5;
     if(isNaN(Date.parse(MonthDayYearDate))){
-        console.log("aqui");
         return undefined;
     }
     return MonthDayYearDate;

@@ -43,7 +43,6 @@ export class SessionRepository{
     public async closeOldSessions(): Promise<void>{
         var lastOneHour = new Date();
         lastOneHour.setTime(lastOneHour.getTime() - (1000 * 60 * 60));
-        console.log(showDate(lastOneHour));
         await createQueryBuilder()
         .update(Session)
         .set({status: "closed"})
