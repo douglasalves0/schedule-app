@@ -19,7 +19,7 @@ export async function handleJob(){
         const scheduleNotify = (await scheduleNotifyRepo.findByScheduleId(scheduleId))[0];
         const userNumber = scheduleNotify.notify_number;
         const message = scheduleNotify.message;
-        console.log(`\tSending message to ${userNumber} of schedule ${scheduleId}...`);
+        console.log(`    * Sending message to ${userNumber} of schedule ${scheduleId}...`);
         sendMessage(userNumber, "*Notificação da Moorse 👨‍💻*\n\n"+message);
         scheduleRepo.markAsExecutedSchedulesEarlierThanNow(scheduleId);
     }
