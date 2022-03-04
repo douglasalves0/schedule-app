@@ -1,7 +1,7 @@
 //configs
 export const moorseUrl = "https://api.moorse.io/v2/whatsapp";
-export const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkb3VnbGFzLmFsdmVzQGNjYy51ZmNnLmVkdS5iciIsImlkQ2xpZW50IjoiZmFkODk4OTYtMmY1Ny00YTc4LWIyMTEtZTgyNTUyMDdiZWRmIiwiY3JlYXRlZCI6MTY0NDkzMzU1MTYzMywicm9sZXMiOlsiUk9MRV9BUEkiLCJST0xFX0RBU0hCT0FSRCIsIlJPTEVfREFTSEJPQVJEX0dST1VQUyIsIlJPTEVfR1JPVVBTIiwiUk9MRV9JTlRFR1JBVElPTl9VU0VSIiwiUk9MRV9UUklBTCIsIlJPTEVfVVNFUlMiLCJST0xFX1dFQkhPT0siXSwiaWQiOjIzNywiZXhwIjoxNjc2NDY5NTUxfQ.dXtlkLlua0MGUhl94voAj0NraybnTun97miYncKp1k6Bh6w6oqS8yCfa3S6xH4QuP9Al944TYGoNKgA3K52YAw";
-export const integration = "348691b3-e742-4dbb-a858-40b887fad173";
+export const token = "Seu-token-de-autenticação aqui";
+export const integration = "O-id-da-sua-integração-aqui";
 
 //default messages
 export const OnlyNumbersAllowed = "São aceitos apenas números válidos!";
