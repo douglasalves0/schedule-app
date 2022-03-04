@@ -3,10 +3,10 @@
 <p align="center">Desenvolvido para facilitar sua forma de agendar notificações!</p>
 
 <p align="center">
-  <a>Sobre</a> • 
-  <a>Instalação</a> • 
-  <a>Como usar</a> • 
-  <a>Tecnologias</a>
+  <a href="Sobre">Sobre</a> • 
+  <a href="Instalação">Instalação</a> • 
+  <a href="Como usar">Como usar</a> • 
+  <a href="Tecnologias">Tecnologias</a>
 </p>
 
 # Sobre
