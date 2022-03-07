@@ -16,9 +16,9 @@ O principal objetivo do Moorse scheduler é servir como uma agenda virtual poss�
 
 # Instalação
 
-Para a devida instalação do Moorse scheduler é necessário que o usuário tenha instalado em sua máquina o interpretador javascript <a href="https://nodejs.org/en/" target="_blank">Node.js</a> bem como seu gerenciador de pacotes <a href="https://www.npmjs.com/" target="_blank">npm</a>, que servirão para a instalação de dependências e também à execução do código. Também, é de suma importância clonar este repositório do github em sua máquina.
+Para a devida instalação do Moorse scheduler é necessário que o usuário tenha instalado em sua máquina o interpretador javascript <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, seu gerenciador de pacotes <a href="https://www.npmjs.com/" target="_blank">npm</a>, o SGBD <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> e o <a href="https://ngrok.com/" target="_blank">ngrok</a> (caso não seja possível acessar seu computador pela internet), que servirão para a instalação de dependências, execução do código, armazenamento de dados e conexão entre a API do Moorse e seu computador. Também, é de suma importância clonar este repositório do github em sua máquina.
 
-Logo após obter, código, node e npm, abra o terminal e após estar dentro da pasta do repositório, execute o comando que instala todas as dependências do projeto:
+Logo após obter, código, node, npm, PostgreSQL e ngrok, abra o terminal e após estar dentro da pasta do repositório, execute o comando que instala todas as dependências do projeto:
 
 ```bash
 $ npm install
@@ -26,7 +26,7 @@ $ npm install
 
 Isso finaliza a etapa de instalação do Moorse Scheduler.
 
-# Execução
+# Configuração
 
 ## 1. Criando conta no site
 
@@ -44,10 +44,44 @@ Enquanto isso, o <strong>id da integração</strong> pode ser obtido por meio da
 
 <img alt="imagem botão token de acesso" src="images/integracao.png"></img>
 
-## 3. Adicionando informações ao programa
+## 3. Adicionando informações da conta ao programa
 
-Com o token e o id em mãos, basta apenas adicionarmos estes dados no programa, vá até o arquivo em `src/utils/constants.ts` e lá adicione ambos token e id da integração. Lembre-se de adicionar os dados com as aspas, para que o programa os reconheça como strings, também é possível trocar a porta da aplicação para alguma de sua preferência.
+Com o token e o id em mãos, basta apenas adicionarmos estes dados no programa, vá até o arquivo em `src/config/configs.ts` e lá adicione ambos token e id da integração. Lembre-se de adicionar os dados com as aspas, para que o programa os reconheça como strings, também é possível trocar a porta da aplicação para alguma de sua preferência.
+
+## 4. Adicionando informações do banco de dados
+
+Também, é necessário que o usuário forneça à aplicação o banco de dados criado. De forma semelhante, isso pode ser feito no arquivo `src/config/configs.ts`, informações como nome da base de dados, senha, usuário e porta, são requisitados, basta preencher corretamente para que o programa funcione com êxito.
+
+## 5. Ligando ngrok e configurando webhook
+
+Agora precisamos conectar você e a Moorse, para que possamos lhe enviar informações sobre quando uma nova mensagem chega a seu Whatsapp.
+
+Para ligar o ngrok apenas digite no terminal:
+
+```bash
+ngrok http 8080
+```
+
+Caso você tenha mudado a porta padrão da aplicação, substitua 8080 pela nova porta, após isso, o ngrok lhe dá uma url possível de ser acessada de qualquer máquina da internet, é o que usaremos para conectar você e a Moorse.
+
+<img src="images/ngrok.png"></img>
+
+Agora com a nova URL, é hora de adicionar esta informação ao site da Moorse, para que as informações dos webhooks cheguem ao seu computador e sejam tratadas corretamente.
+
+<img src="images/webhook.png"></img>
+
+_(Caso seu ip possa ser acessado da internet, apenas adicione este ip ao URL)._
+
+Aqui, apenas modifique a URL e adicione um nome ao seu webhook, nada mais necessita ser modificado. Com isso, a configuração da aplicação é concluída. <strong>Sempre que o ngrok for desligado todo esse processo de webhook necessita ser feito novamente</strong>.
 
 # Execução
 
-Para que o programa funcione corretamente
+Para que o programa funcione corretamente é necessário que todas as etapas anteriores tenham sido concluídas, caso contrário, volte aos tópicos anteriores.
+
+A aplicação é facilmente iniciada pelo comando:
+
+```bash
+$ npm run start
+```
+
+Após isso, o programa inicia e o Moorse Scheduler funciona corretamente.
