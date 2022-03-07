@@ -5,9 +5,9 @@
 <p align="center">
   <a href="#Sobre" target="_blank">Sobre</a> • 
   <a href="#Instalação" target="_blank">Instalação</a> • 
-  <a href="#Como usar" target="_blank">Execução</a> • 
-  <a href="#Como utilizar" target="_blank">Utilização</a> • 
-  <a href="#Tecnologias" target="_blank">Tecnologias</a>
+  <a href="#Configuração" target="_blank">Configuração</a> • 
+  <a href="#Execução" target="_blank">Execução</a> • 
+  <a href="#Utilização" target="_blank">Utilização</a>
 </p>
 
 # Sobre
@@ -26,7 +26,7 @@ $ npm install
 
 Isso finaliza a etapa de instalação do Moorse Scheduler.
 
-# Como usar
+# Execução
 
 ## 1. Criando conta no site
 
@@ -46,4 +46,8 @@ Enquanto isso, o <strong>id da integração</strong> pode ser obtido por meio da
 
 ## 3. Adicionando informações ao programa
 
-Com o token e o id em mãos, basta apenas adicionarmos estes dados no programa, vá até o arquivo em `src/utils/constants.ts` e lá adicione ambos token e id da integração. Lembre-se de adicionar os dados com as aspas, para que o programa os reconheça como strings.
+Com o token e o id em mãos, basta apenas adicionarmos estes dados no programa, vá até o arquivo em `src/utils/constants.ts` e lá adicione ambos token e id da integração. Lembre-se de adicionar os dados com as aspas, para que o programa os reconheça como strings, também é possível trocar a porta da aplicação para alguma de sua preferência.
+
+# Execução
+
+Para que o programa funcione corretamente

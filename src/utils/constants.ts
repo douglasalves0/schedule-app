@@ -1,8 +1,3 @@
-//configs
-export const moorseUrl = "https://api.moorse.io/v2/whatsapp";
-export const token = "Seu-token-de-autenticação aqui";
-export const integration = "O-id-da-sua-integração-aqui";
-
 //default messages
 export const OnlyNumbersAllowed = "São aceitos apenas números válidos!";
 export const ValidDateNeeded = "Uma data válida é necessária!";
