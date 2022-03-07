@@ -3,11 +3,12 @@
 <p align="center">Desenvolvido para facilitar sua forma de agendar notificações!</p>
 
 <p align="center">
-  <a href="#Sobre" target="_blank">Sobre</a> • 
-  <a href="#Instalação" target="_blank">Instalação</a> • 
-  <a href="#Configuração" target="_blank">Configuração</a> • 
-  <a href="#Execução" target="_blank">Execução</a> • 
-  <a href="#Suporte grátis em Whatsapp, Telegram e Discord" target="_blank">Suporte</a>
+  <a href="#Sobre">Sobre</a> • 
+  <a href="#Instalação">Instalação</a> • 
+  <a href="#Configuração">Configuração</a> • 
+  <a href="#Execução">Execução</a> • 
+  <a href="#Utilização">Utilização</a> •
+  <a href="#Suporte grátis em Whatsapp, Telegram e Discord">Suporte</a>
 </p>
 
 # Sobre :rocket:
@@ -85,6 +86,16 @@ npm run start
 ```
 
 Após isso, o programa inicia e o Moorse Scheduler funciona corretamente.
+
+# Utilização
+
+O Moorse Scheduler foi criado para ser fácil de usar afim de que qualquer pessoa possa conectar-se através de nossos canais. Com apenas uma mensagem ao bot, torna-se possível estabelecer comunicação e agendar mensagens para dia e hora desejados.
+
+<img src="images/exemplo.png"></img>
+
+E após um agendamento, ao chegar a hora exata da mensagem, nossa aplicação te enviará uma notificação com a mensagem informada na hora do agendamento.
+
+<img src="images/exemplo2.png">
 
 # Suporte grátis no Whatsapp, Telegram e Discord :man_technologist:
 
