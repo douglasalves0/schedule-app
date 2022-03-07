@@ -7,14 +7,14 @@
   <a href="#Instalação" target="_blank">Instalação</a> • 
   <a href="#Configuração" target="_blank">Configuração</a> • 
   <a href="#Execução" target="_blank">Execução</a> • 
-  <a href="#Utilização" target="_blank">Utilização</a>
+  <a href="#Suporte grátis em Whatsapp, Telegram e Discord" target="_blank">Suporte</a>
 </p>
 
-# Sobre
+# Sobre :rocket:
 
 O principal objetivo do Moorse scheduler é servir como uma agenda virtual possível de ser utilizada dentro do seu aplicativo do Whatsapp. Ao conversar com nosso Moorsebot, ele lhe permitirá criar, editar e excluir notificações a seu gosto, lhe permitindo escolher data e mensagem a ser enviada.
 
-# Instalação
+# Instalação :meg:
 
 Para a devida instalação do Moorse scheduler é necessário que o usuário tenha instalado em sua máquina o interpretador javascript <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, seu gerenciador de pacotes <a href="https://www.npmjs.com/" target="_blank">npm</a>, o SGBD <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> e o <a href="https://ngrok.com/" target="_blank">ngrok</a> (caso não seja possível acessar seu computador pela internet), que servirão para a instalação de dependências, execução do código, armazenamento de dados e conexão entre a API do Moorse e seu computador. Também, é de suma importância clonar este repositório do github em sua máquina.
 
@@ -26,7 +26,7 @@ $ npm install
 
 Isso finaliza a etapa de instalação do Moorse Scheduler.
 
-# Configuração
+# Configuração :computer:
 
 ## 1. Criando conta no site
 
@@ -74,7 +74,7 @@ _(Caso seu ip possa ser acessado da internet, apenas adicione este ip ao URL)._
 
 Aqui, apenas modifique a URL e adicione um nome ao seu webhook, nada mais necessita ser modificado. Com isso, a configuração da aplicação é concluída. <strong>Sempre que o ngrok for desligado todo esse processo de webhook necessita ser feito novamente</strong>.
 
-# Execução
+# Execução :gear:
 
 Para que o programa funcione corretamente é necessário que todas as etapas anteriores tenham sido concluídas, caso contrário, volte aos tópicos anteriores.
 
@@ -85,3 +85,9 @@ $ npm run start
 ```
 
 Após isso, o programa inicia e o Moorse Scheduler funciona corretamente.
+
+# Suporte grátis em Whatsapp, Telegram e Discord
+
+|Whatsapp|Telegram|Discord|
+|---|---|---|
+|<a display="inline" target="_blank" href="https://web.whatsapp.com/send?phone=5511975923164&text=oi" target="_blank"><img align="center" title="whatsapp" height="50" width="50" src="images/whatsapp.png"/></a>|<a display="inline" float="left" target="_blank" href="https://t.me/moorseio" target="_blank"><img title="Telegram" height="50" width="50" src="images/telegram.png" align="center"/></a>|<a display="inline" target="_blank" href="https://discord.gg/uPp2SmCA" target="_blank"><img src="images/discord.png" height="50" width="50" align="center"></a>|
