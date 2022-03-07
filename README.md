@@ -14,7 +14,7 @@
 
 O principal objetivo do Moorse scheduler é servir como uma agenda virtual possível de ser utilizada dentro do seu aplicativo do Whatsapp. Ao conversar com nosso Moorsebot, ele lhe permitirá criar, editar e excluir notificações a seu gosto, lhe permitindo escolher data e mensagem a ser enviada.
 
-# Instalação :meg:
+# Instalação :mag:
 
 Para a devida instalação do Moorse scheduler é necessário que o usuário tenha instalado em sua máquina o interpretador javascript <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, seu gerenciador de pacotes <a href="https://www.npmjs.com/" target="_blank">npm</a>, o SGBD <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a> e o <a href="https://ngrok.com/" target="_blank">ngrok</a> (caso não seja possível acessar seu computador pela internet), que servirão para a instalação de dependências, execução do código, armazenamento de dados e conexão entre a API do Moorse e seu computador. Também, é de suma importância clonar este repositório do github em sua máquina.
 
@@ -86,7 +86,7 @@ $ npm run start
 
 Após isso, o programa inicia e o Moorse Scheduler funciona corretamente.
 
-# Suporte grátis em Whatsapp, Telegram e Discord
+# Suporte grátis no Whatsapp, Telegram e Discord :man_technologist:
 
 |Whatsapp|Telegram|Discord|
 |---|---|---|
