@@ -21,7 +21,7 @@ Para a devida instalação do Moorse scheduler é necessário que o usuário ten
 Logo após obter, código, node, npm, PostgreSQL e ngrok, abra o terminal e após estar dentro da pasta do repositório, execute o comando que instala todas as dependências do projeto:
 
 ```bash
-$ npm install
+npm install
 ```
 
 Isso finaliza a etapa de instalação do Moorse Scheduler.
@@ -81,7 +81,7 @@ Para que o programa funcione corretamente é necessário que todas as etapas ant
 A aplicação é facilmente iniciada pelo comando:
 
 ```bash
-$ npm run start
+npm run start
 ```
 
 Após isso, o programa inicia e o Moorse Scheduler funciona corretamente.
