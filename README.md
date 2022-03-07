@@ -89,7 +89,7 @@ Após isso, o programa inicia e o Moorse Scheduler funciona corretamente.
 
 # Utilização
 
-O Moorse Scheduler foi criado para ser fácil de usar afim de que qualquer pessoa possa conectar-se através de nossos canais. Com apenas uma mensagem ao bot, torna-se possível estabelecer comunicação e agendar mensagens para dia e hora desejados.
+O Moorse Scheduler foi criado para ser fácil de usar, afim de que qualquer pessoa possa conectar-se através de nossos canais. Com apenas uma mensagem ao bot, torna-se possível estabelecer comunicação e agendar mensagens para dia e hora desejados.
 
 <img src="images/exemplo.png"></img>
 
