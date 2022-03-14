@@ -6,7 +6,7 @@ import { SessionMessageRepository } from "src/repositories/session.message.repos
 import { SucessSchedule } from "src/utils/constants";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
-import { sendMessage } from "src/api/send.message.api";
+import { sendMessage } from "src/api/moorse/send.message.api";
 import { Saver } from "./save.session.message.method";
 
 export class HandleTypeNewMessage extends Saver implements Message{

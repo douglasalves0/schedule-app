@@ -5,7 +5,7 @@ import { SessionMessageRepository } from 'src/repositories/session.message.repos
 
 import { TypeNewDate } from '../strategies/strategies.constants';
 import { OnlyNumbersAllowed, OperationCanceled } from 'src/utils/constants';
-import { sendMessage } from 'src/api/send.message.api';
+import { sendMessage } from "src/api/moorse/send.message.api";
 import { Saver } from './save.session.message.method';
 
 export class HandleContinueEditing extends Saver implements Message{

@@ -12,6 +12,7 @@ export class SessionMessage1643932742330 implements MigrationInterface {
                         name: 'id',
                         type: 'uuid',
                         isPrimary: true,
+                        isUnique: true,
                         generationStrategy: 'uuid',
                         default: 'uuid_generate_v4()',
                     },{
@@ -35,7 +36,7 @@ export class SessionMessage1643932742330 implements MigrationInterface {
                         default: 'now()'
                     }
                 ]
-            })
+            }), true
         );
         await queryRunner.createForeignKey(
             'session_message',

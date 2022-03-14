@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { integration, moorseUrl, token } from 'src/utils/constants';
+import { integration, moorseUrl, token } from 'src/config/configs';
 
 export async function sendMessage(userNumber: string, message: string){
     const options = {

@@ -7,7 +7,7 @@ import { ContinueEditing } from '../strategies/strategies.constants';
 import { NotFoundSchedule } from "src/utils/constants";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
 import { delay, showDate } from "src/utils/functions";
-import { sendMessage } from "src/api/send.message.api";
+import { sendMessage } from "src/api/moorse/send.message.api";
 import { Saver } from "./save.session.message.method";
 
 export class HandleNeedScheduleCode extends Saver implements Message{

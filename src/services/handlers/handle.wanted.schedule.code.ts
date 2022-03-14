@@ -6,7 +6,7 @@ import { v4 as uuidv4} from "uuid";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
 import { DeletedSchedule, NotFoundSchedule } from "src/utils/constants";
-import { sendMessage } from "src/api/send.message.api";
+import { sendMessage } from "src/api/moorse/send.message.api";
 import { Saver } from "./save.session.message.method";
 
 export class HandleWantedScheduleCode extends Saver implements Message{

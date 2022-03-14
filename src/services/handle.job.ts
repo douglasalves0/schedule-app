@@ -1,4 +1,4 @@
-import { sendMessage } from "src/api/send.message.api";
+import { sendMessage } from "src/api/moorse/send.message.api";
 import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repository";
 import { ScheduleRepository } from "src/repositories/schedule.repository";
 import { SessionRepository } from "src/repositories/session.repository";
@@ -19,9 +19,9 @@ export async function handleJob(){
         const scheduleNotify = (await scheduleNotifyRepo.findByScheduleId(scheduleId))[0];
         const userNumber = scheduleNotify.notify_number;
         const message = scheduleNotify.message;
-        console.log(`    * Sending message to ${userNumber} of schedule ${scheduleId}...`);
+        console.log(`* Sending message to ${userNumber} of schedule ${scheduleId}...`);
         sendMessage(userNumber, "*Notificação da Moorse 👨‍💻*\n\n"+message);
-        scheduleRepo.markAsExecutedSchedulesEarlierThanNow(scheduleId);
+        scheduleRepo.markAsExecutedSchedulesEarlierThanNow();
     }
     
     sessionRepo.closeOldSessions(); 

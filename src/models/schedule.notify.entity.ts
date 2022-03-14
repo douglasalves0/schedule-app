@@ -5,14 +5,14 @@ import { v4 as uuidv4 } from 'uuid';
 @Entity({name: 'schedule_notify'})
 export class ScheduleNotify{
 
-    @PrimaryGeneratedColumn()
-    id: uuidv4;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @ManyToOne(() => Schedule, schedule => schedule.schedulesNotify)
     schedule: Schedule;
 
     @Column()
-    schedule_id: uuidv4;
+    schedule_id: string;
 
     @Column()
     notify_number: string;

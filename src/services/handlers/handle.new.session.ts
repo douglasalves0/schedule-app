@@ -4,7 +4,7 @@ import { SessionRepository } from "src/repositories/session.repository";
 import { WelcomeMessage } from '../strategies/strategies.constants';
 import { Message } from "../interfaces/message.interface";
 import { v4 as uuidv4} from 'uuid';
-import { sendMessage } from "src/api/send.message.api";
+import { sendMessage } from "src/api/moorse/send.message.api";
 import { Saver } from "./save.session.message.method";
 
 export class HandleNewSession extends Saver implements Message{

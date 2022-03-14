@@ -80,7 +80,7 @@ export class ScheduleRepository{
         return answer;
     }
 
-    public async markAsExecutedSchedulesEarlierThanNow(date: Date):Promise<void>{
+    public async markAsExecutedSchedulesEarlierThanNow():Promise<void>{
         await createQueryBuilder().
         update(Schedule).
         set({status: "executed"}).

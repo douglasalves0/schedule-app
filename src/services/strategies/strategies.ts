@@ -1,7 +1,16 @@
 import { MessageDto } from "src/dtos/message.dto";
-import { Message } from "../interfaces/message.interface";
 import { v4 as uuidv4 } from 'uuid';
-import { ChoiceNotificationMessage, ConfirmNotificationMessage, ContinueEditing, CreateNotificationMessage, NeedScheduleCode, TypeNewDate, TypeNewMessage, WantedScheduleCode, WelcomeMessage } from "./strategies.constants";
+import { 
+    ChoiceNotificationMessage, 
+    ConfirmNotificationMessage, 
+    ContinueEditing, 
+    CreateNotificationMessage, 
+    NeedScheduleCode, 
+    TypeNewDate, 
+    TypeNewMessage, 
+    WantedScheduleCode, 
+    WelcomeMessage 
+} from "./strategies.constants";
 
 import { DefaultHandler } from "../handlers/handle.default";
 import { HandleNeedScheduleCode } from "../handlers/handle.need.schedule.code";
