@@ -36,7 +36,7 @@ export class HandleRefreshToken{
         const scheduleRepo = new ScheduleRepository();
         const notifySchedules = await scheduleNotifyRepo.findByUserNumber(state);
         
-	var exit = "";
+	    var exit = "";
 
         for(var i=0;i<notifySchedules.length;i++){
 
@@ -68,7 +68,7 @@ export class HandleRefreshToken{
             
         }
 
-	return exit;
+	    return exit;
 
     }
 }

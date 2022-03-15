@@ -1,4 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
+import { google } from "googleapis";
+import {oauth2Client} from "src/api/google/google.oauth";
+import { GoogleCalendarDataRepository } from "src/repositories/google.calendar.data.repository";
+import fetch from 'node-fetch';
+import { clientSecret, clientId } from "src/config/configs";
 
 export function checkDate(date: string): string{
     var twoDots:number[] = [];
@@ -110,4 +115,41 @@ export function showDate(date: Date): string{
     answer += day + "/" + month + "/" + year + " " + hour + ":" + minute;
     return answer;
 
+}
+
+export async function getAcessToken(refreshToken: string){
+    const options = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json', 
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            client_id: clientId,
+            client_secret: clientSecret,
+            refresh_token: refreshToken,
+            grant_type: "refresh_token"
+        })
+    };
+    const answer = await fetch(`https://www.googleapis.com/oauth2/v4/token`, options);
+    return answer;
+}
+
+export async function getAuth(refreshToken: string){
+    const req = await getAcessToken(refreshToken);
+    var oauth2 = oauth2Client;
+    oauth2.setCredentials({
+        access_token: req.access_token,
+        refresh_token: refreshToken,
+        expiry_date: req.expires_in,
+    });
+    return oauth2;
+}
+
+export async function configureCalendar(oauth2){
+    const calendar = google.calendar({
+        version: "v3",
+        auth: oauth2
+    });
+    return calendar;
 }
