@@ -1,4 +1,4 @@
-import { Schedule } from "src/models/schedule.entity";
+import { schedule } from "src/models/schedule.entity";
 import { ScheduleDto } from "src/dtos/schedule.dto";
 import { createQueryBuilder } from "typeorm";
 import { v4 as uuidv4} from 'uuid';
@@ -7,46 +7,47 @@ import { showDate } from "src/utils/functions";
 
 export class ScheduleRepository{
 
-    public async save(schedule: ScheduleDto): Promise<uuidv4>{
+    public async save(schedules: ScheduleDto): Promise<uuidv4>{
         const answer = await createQueryBuilder().
         insert().
-        into(Schedule).
-        values([schedule]).
+        into(schedule).
+        values([schedules]).
         execute();
+        console.log(answer);
         return answer.raw[0].id;
     }
 
-    public async findAll(): Promise<Schedule[]>{
+    public async findAll(): Promise<schedule[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(Schedule, "schedule").
+        from(schedule, "schedule").
         execute();
         return answer;
     }
 
-    public async findById(scheduleId: uuidv4): Promise<Schedule>{
+    public async findById(scheduleId: uuidv4){
         const answer = await createQueryBuilder().
         select("*").
-        from(Schedule, "schedule").
+        from(schedule, "schedule").
         where("schedule.id = :id",{id:scheduleId}).
         execute();
         return answer;
     }
 
-    public async findPendingSchedulesBySessionId(sessionId: uuidv4): Promise<Schedule[]>{
+    public async findPendingSchedulesBySessionId(sessionId: uuidv4): Promise<schedule[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(Schedule, "schedule").
+        from(schedule, "schedule").
         where("schedule.session_id = :sessionId",{sessionId:sessionId}).
         andWhere("schedule.status = :status",{status: "pending"}).
         execute();
         return answer;
     }
 
-    public async findPendingSchedulesByCodeByUserNumber(userNumber: string, code: string): Promise<Schedule>{
+    public async findPendingSchedulesByCodeByUserNumber(userNumber: string, code: string): Promise<schedule>{
         const answer = await createQueryBuilder().
         select("*").
-        from(Schedule, "schedule").
+        from(schedule, "schedule").
         where("schedule.code = :code",{code:code}).
         andWhere("schedule.status = :status",{status: "pending"}).
         execute();
@@ -64,16 +65,16 @@ export class ScheduleRepository{
 
     public async changeDateById(scheduleId: uuidv4, date: Date): Promise<void>{
         await createQueryBuilder().
-        update(Schedule).
+        update(schedule).
         set({date: date}).
         where("id = :id", {id: scheduleId}).
         execute();
     }
 
-    public async findSchedulesEarlierThanNow(): Promise<Schedule[]>{
+    public async findSchedulesEarlierThanNow(): Promise<schedule[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(Schedule, "schedule").
+        from(schedule, "schedule").
         where("date <= :date",{date:new Date()}).
         andWhere("status = :status",{status:"pending"}).
         execute();
@@ -82,7 +83,7 @@ export class ScheduleRepository{
 
     public async markAsExecutedSchedulesEarlierThanNow():Promise<void>{
         await createQueryBuilder().
-        update(Schedule).
+        update(schedule).
         set({status: "executed"}).
         where("date <= :date", {date: new Date()}).
         andWhere("status = :status",{status:"pending"}).

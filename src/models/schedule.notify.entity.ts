@@ -1,15 +1,15 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Schedule } from "src/models/schedule.entity";
+import { schedule } from "src/models/schedule.entity";
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity({name: 'schedule_notify'})
-export class ScheduleNotify{
+export class schedule_notify{
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => Schedule, schedule => schedule.schedulesNotify)
-    schedule: Schedule;
+    @ManyToOne(() => schedule, schedule => schedule.schedules_notify)
+    schedule: schedule;
 
     @Column()
     schedule_id: string;

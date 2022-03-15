@@ -4,8 +4,9 @@ import { Saver } from "./save.session.message.method";
 import { v4 as uuidv4 } from "uuid";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { sendMessage } from "src/api/moorse/send.message.api";
-import { TypeEmail, WelcomeMessage } from "../strategies/strategies.constants";
+import { ClickLink, WelcomeMessage } from "../strategies/strategies.constants";
 import { OnlyNumbersAllowed } from "src/utils/constants";
+import { url } from "src/api/google/google.oauth";
 
 export class HandleSyncAccount extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4) {
@@ -20,8 +21,8 @@ export class HandleSyncAccount extends Saver implements Message{
             return ;
         }
         if(userMessage == "1"){
-            await this.saveMessage(botNumber, userNumber, TypeEmail, sessionId);
-            sendMessage(userNumber, TypeEmail);
+            await this.saveMessage(botNumber, userNumber, ClickLink + url + userNumber, sessionId);
+            sendMessage(userNumber, ClickLink + url + userNumber);
             return ;
         }
 

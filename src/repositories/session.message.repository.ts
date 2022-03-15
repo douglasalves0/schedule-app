@@ -1,6 +1,6 @@
 import { SessionDto } from "src/dtos/session.dto";
 import { SessionMessageDto } from "src/dtos/session.message.dto";
-import { SessionMessage } from "src/models/session.message.entity";
+import { session_message } from "src/models/session.message.entity";
 import { createQueryBuilder} from "typeorm";
 import { v4 as uuidv4} from 'uuid';
 
@@ -9,33 +9,33 @@ export class SessionMessageRepository{
     public async save(sessionMessage: SessionMessageDto):Promise<uuidv4>{
         const answer = await createQueryBuilder().
         insert().
-        into(SessionMessage).
+        into(session_message).
         values([sessionMessage]).
         execute();
         return answer.raw[0].id;
     }
 
-    public async findAll(): Promise<SessionMessage[]>{
+    public async findAll(): Promise<session_message[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(SessionMessage, "session_message").
+        from(session_message, "session_message").
         execute();
         return answer;
     }
 
-    public async findById(sessionMessageId: number): Promise<SessionMessage>{
+    public async findById(sessionMessageId: number): Promise<session_message>{
         const answer = await createQueryBuilder().
         select("*").
-        from(SessionMessage, "session_message").
+        from(session_message, "session_message").
         where("session_message.id = :id",{id:sessionMessageId}).
         execute();
         return answer;
     }
 
-    public async findKthLatestMessageToUser(userNumber: string, offset: number): Promise<SessionMessage[]>{
+    public async findKthLatestMessageToUser(userNumber: string, offset: number): Promise<session_message[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(SessionMessage, "session_message").
+        from(session_message, "session_message").
         orderBy("session_message.date", "DESC").
         where("session_message.direction = :direction",{direction: "out"}).
         andWhere("session_message.to = :to",{to: userNumber}).
@@ -45,10 +45,10 @@ export class SessionMessageRepository{
         return answer;
     }
 
-    public async findKthLatestMessageFromUser(userNumber: string, offset: number): Promise<SessionMessage[]>{
+    public async findKthLatestMessageFromUser(userNumber: string, offset: number): Promise<session_message[]>{
         const answer = await createQueryBuilder().
         select("*").
-        from(SessionMessage, "session_message").
+        from(session_message, "session_message").
         orderBy("session_message.date", "DESC").
         where("session_message.direction = :direction",{direction: "in"}).
         andWhere("session_message.from = :from",{from: userNumber}).

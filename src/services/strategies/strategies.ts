@@ -6,6 +6,7 @@ import {
     ContinueEditing, 
     CreateNotificationMessage, 
     NeedScheduleCode, 
+    SyncAccount, 
     TypeNewDate, 
     TypeNewMessage, 
     WantedScheduleCode, 
@@ -22,6 +23,7 @@ import { HandleWelcomeMessage } from "../handlers/handle.welcome.message";
 import { HandleChoiceNotification } from "../handlers/handle.choice.notification";
 import { HandleConfirmNotification } from "../handlers/handle.confirm.notification";
 import { HandleCreateNotification } from "../handlers/handle.create.notification";
+import { HandleSyncAccount } from "../handlers/handle.sync.account";
 
 export async function loadStrategies(){
     strategies.set(WelcomeMessage, new HandleWelcomeMessage());    
@@ -33,6 +35,7 @@ export async function loadStrategies(){
     strategies.set(TypeNewDate, new HandleTypeNewDate());
     strategies.set(TypeNewMessage, new HandleTypeNewMessage());
     strategies.set(WantedScheduleCode, new HandleWantedScheduleCode());
+    strategies.set(SyncAccount, new HandleSyncAccount);
 }
 
 export async function execStrategy(message: string, sessionId: uuidv4, messageDto: MessageDto){

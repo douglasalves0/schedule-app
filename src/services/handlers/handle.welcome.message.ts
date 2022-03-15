@@ -28,13 +28,16 @@ export class HandleWelcomeMessage extends Saver implements Message{
         switch(userOption){
             case 1:
                 var botMessage = "Mensagens agendadas:\n\n";
-                const answer = await scheduleRepo.findPendingSchedulesBySessionId(sessionId);
-                for(var i=0;i<answer.length;i++){
-                    const idSchedule = answer[i].id;
-                    const scheduleMessage = (await scheduleNotifyRepo.findByScheduleId(idSchedule))[0].message;
-                    botMessage += "Código: " + answer[i].code + "\n";
-                    botMessage += "Mensagem: " + scheduleMessage + "\n";
-                    botMessage += "Agendada para: " + showDate(answer[i].date) + "\n\n";
+                const notifySchedules = await scheduleNotifyRepo.findByUserNumber(userNumber);
+                for(var i=0;i<notifySchedules.length;i++){
+                    const scheduleId = notifySchedules[i].schedule_id;
+                    const schedule = await scheduleRepo.findById(scheduleId);
+                    if(schedule.status != "pending"){
+                        continue;
+                    }
+                    botMessage += "Código: " + schedule.code + "\n";
+                    botMessage += "Mensagem: " + notifySchedules[i].message + "\n";
+                    botMessage += "Agendada para: " + showDate(schedule.date) + "\n\n";
                 }
                 await this.saveMessage(botNumber, userNumber, botMessage, sessionId);
                 sendMessage(userNumber, botMessage);

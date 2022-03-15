@@ -1,16 +1,16 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Session } from "./session.entity";
+import { session } from "./session.entity";
 
 @Entity({name: 'session_message'})
-export class SessionMessage{
+export class session_message{
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(() => Session, session => session.sessionMessages)
-    session: Session;
+    @ManyToOne(() => session, session => session.session_messages)
+    session: session;
 
-    @Column()
+    @Column({name: "session_id"})
     session_id: string;
 
     @Column()

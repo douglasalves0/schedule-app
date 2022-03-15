@@ -1,7 +1,6 @@
 //sync account
 export const SyncAccount = "Escolha uma das opções para automação.\n1 - Sincronizar com o Google Calendar\n2 - Criar notificação local";
-export const TypeEmail = "Digite seu e-mail: "
-export const TypePass = "Digite sua senha: "
+export const ClickLink = "Para conseguirmos integrar você ao Calendar é necessário autorizar nosso app na URL abaixo:\n\n"
 
 //main menu
 export const WelcomeMessage = "Escolha uma das opções para automação.\n\n1 - Listar notificações\n2 - Criar notificação\n3 - Editar notificação\n4 - Excluir notificação";

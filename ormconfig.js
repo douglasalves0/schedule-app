@@ -1,4 +1,6 @@
-{
+const SnakeNamingStrategy = require('typeorm-naming-strategies').SnakeNamingStrategy;
+
+module.exports = {
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
@@ -6,11 +8,12 @@
   "password": "postgres",
   "database": "scheduledatabase",
   "entities": ["dist/models/*.entity.js"],
-  "synchronize": true,
+  "synchronize": false,
   "migrations": ["dist/migrations/*.js"],
   "migrationsTableName": "migrations",
-  "migrationsRun": true,
+  "migrationsRun": false,
   "cli":{
     "migrationsDir":"src/migrations"
-  }
+  },
+  namingStrategy: new SnakeNamingStrategy()
 }

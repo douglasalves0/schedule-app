@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: "google_calendar_data"})
-export class GoogleCalendarData{
+export class google_calendar_data{
 
     @PrimaryGeneratedColumn('uuid')
     id: string;

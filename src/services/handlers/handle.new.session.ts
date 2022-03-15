@@ -1,7 +1,7 @@
 import { MessageDto } from "src/dtos/message.dto";
 import { SessionMessageRepository } from "src/repositories/session.message.repository";
 import { SessionRepository } from "src/repositories/session.repository";
-import { WelcomeMessage } from '../strategies/strategies.constants';
+import { SyncAccount, WelcomeMessage } from '../strategies/strategies.constants';
 import { Message } from "../interfaces/message.interface";
 import { v4 as uuidv4} from 'uuid';
 import { sendMessage } from "src/api/moorse/send.message.api";
@@ -38,7 +38,7 @@ export class HandleNewSession extends Saver implements Message{
         });
         const greet = `Olá ${userName}, sou o MoorseBot, seu assistente virtual, em que posso te ajudar? 👨‍💻\n\n`;
         await this.saveMessage(botNumber, userNumber, greet, newSessionId);
-        await this.saveMessage(botNumber, userNumber, WelcomeMessage, newSessionId);
-        sendMessage(userNumber, greet + WelcomeMessage);
+        await this.saveMessage(botNumber, userNumber, SyncAccount, newSessionId);
+        sendMessage(userNumber, greet + SyncAccount);
     }
 }

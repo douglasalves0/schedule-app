@@ -41,6 +41,7 @@ export class HandleConfirmNotification extends Saver implements Message{
                 type: "notify",
                 code: getCode()
             });
+            console.log("SALVEI COM O ID: " + scheduleId);
             await scheduleNotifyRepo.save({
                 message: userNotifyMessage,
                 notify_number: userNumber,
