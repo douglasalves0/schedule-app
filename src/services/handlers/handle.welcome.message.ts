@@ -10,6 +10,8 @@ import { ScheduleNotifyRepository } from "src/repositories/schedule.notify.repos
 import { showDate } from "src/utils/functions";
 import { sendMessage } from "src/api/moorse/send.message.api";
 import { Saver } from "./save.session.message.method";
+import { GoogleCalendarDataRepository } from "src/repositories/google.calendar.data.repository";
+import { getAuth, configureCalendar } from "src/utils/functions";
 
 export class HandleWelcomeMessage extends Saver implements Message{
     public async handle(message: MessageDto, sessionId: uuidv4){
@@ -18,6 +20,7 @@ export class HandleWelcomeMessage extends Saver implements Message{
         const sessionMessageRepo = new SessionMessageRepository;
         const scheduleRepo = new ScheduleRepository;
         const scheduleNotifyRepo = new ScheduleNotifyRepository;
+        const googleCalendarDataRepo = new GoogleCalendarDataRepository;
 
         const userNumber = message.from;
         const botNumber = message.to;
@@ -28,16 +31,35 @@ export class HandleWelcomeMessage extends Saver implements Message{
         switch(userOption){
             case 1:
                 var botMessage = "Mensagens agendadas:\n\n";
-                const notifySchedules = await scheduleNotifyRepo.findByUserNumber(userNumber);
-                for(var i=0;i<notifySchedules.length;i++){
-                    const scheduleId = notifySchedules[i].schedule_id;
-                    const schedule = await scheduleRepo.findById(scheduleId);
-                    if(schedule.status != "pending"){
-                        continue;
+                if(await googleCalendarDataRepo.isSynchronized(userNumber)){
+                    const refreshToken = (await googleCalendarDataRepo.findByUserNumber(userNumber))[0].refresh_token;
+                    const auth = await getAuth(refreshToken);
+                    const calendar = await configureCalendar(auth);
+                    const answer = await calendar.events.list({
+                        calendarId: 'primary',
+                        timeMin: (new Date()).toISOString()
+                    });
+                    for(var i=0;i<answer.data.items.length;i++){
+                    	if(!answer.data.items[i].start){
+                    	    continue;
+                    	}
+                    	const inicio = showDate(new Date(answer.data.items[i].start.dateTime));
+                    	const notificacao = answer.data.items[i].summary;
+                    	const code = answer.data.items[i].id;
+                    	botMessage += `Notificação: ${notificacao}\nData: ${inicio}\nCódigo: ${code}\n\n`;
                     }
-                    botMessage += "Código: " + schedule.code + "\n";
-                    botMessage += "Mensagem: " + notifySchedules[i].message + "\n";
-                    botMessage += "Agendada para: " + showDate(schedule.date) + "\n\n";
+                }else{
+                    const notifySchedules = await scheduleNotifyRepo.findByUserNumber(userNumber);
+                    for(var i=0;i<notifySchedules.length;i++){
+                        const scheduleId = notifySchedules[i].schedule_id;
+                        const schedule = await scheduleRepo.findById(scheduleId);
+                        if(schedule.status != "pending"){
+                            continue;
+                        }
+                        botMessage += "Código: " + schedule.code + "\n";
+                        botMessage += "Mensagem: " + notifySchedules[i].message + "\n";
+                        botMessage += "Agendada para: " + showDate(schedule.date) + "\n\n";
+                    }
                 }
                 await this.saveMessage(botNumber, userNumber, botMessage, sessionId);
                 sendMessage(userNumber, botMessage);
