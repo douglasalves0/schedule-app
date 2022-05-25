@@ -11,13 +11,13 @@ export class schedule_notify{
     @ManyToOne(() => schedule, schedule => schedule.schedules_notify)
     schedule: schedule;
 
-    @Column()
+    @Column({name: 'schedule_id'})
     schedule_id: string;
 
-    @Column()
+    @Column({name: 'notify_number'})
     notify_number: string;
 
-    @Column()
+    @Column({name: 'message'})
     message: string;
 
 }

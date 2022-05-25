@@ -3,7 +3,7 @@ import { google } from "googleapis";
 import {oauth2Client} from "src/api/google/google.oauth";
 import { GoogleCalendarDataRepository } from "src/repositories/google.calendar.data.repository";
 import fetch from 'node-fetch';
-import { clientSecret, clientId } from "src/config/configs";
+import { googleClientSecret, googleClientId } from "src/config/configs";
 
 export function checkDate(date: string): string{
     var twoDots:number[] = [];
@@ -125,8 +125,8 @@ export async function getAcessToken(refreshToken: string){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            client_id: clientId,
-            client_secret: clientSecret,
+            client_id: googleClientId,
+            client_secret: googleClientSecret,
             refresh_token: refreshToken,
             grant_type: "refresh_token"
         })

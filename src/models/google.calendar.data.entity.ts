@@ -6,16 +6,16 @@ export class google_calendar_data{
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({name: 'whatsapp_number'})
     whatsapp_number: string;
 
-    @Column()
+    @Column({name: 'refresh_token'})
     refresh_token: string;
 
-    @Column()
+    @Column({name: 'created'})
     created: Date;
 
-    @Column()
+    @Column({name: 'updated'})
     updated: Date;
 
 }

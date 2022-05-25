@@ -1,10 +1,10 @@
 import { google } from "googleapis";
-import { clientId, clientSecret, redirectURL } from "src/config/configs";
+import { googleClientId, googleClientSecret, googleRedirectURL } from "src/config/configs";
 
 export const oauth2Client = new google.auth.OAuth2(
-  clientId,
-  clientSecret,
-  redirectURL
+  googleClientId,
+  googleClientSecret,
+  googleRedirectURL
 );
 
 export const scope = [

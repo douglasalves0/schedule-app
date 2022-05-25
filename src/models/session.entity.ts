@@ -14,16 +14,16 @@ export class session{
     @OneToMany(() => session_message, session_message => session_message.session)
     session_messages: session_message[];
 
-    @Column()
+    @Column({name: 'wa_user'})
     wa_user: string;
 
-    @Column()
+    @Column({name: 'started'})
     started: Date;
 
-    @Column()
+    @Column({name: 'latest_message'})
     latest_message: Date;
 
-    @Column()
+    @Column({name: 'status'})
     status: string;
 
 }

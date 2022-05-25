@@ -11,31 +11,31 @@ export class schedule{
     @ManyToOne(() => session, session => session.schedule)
     session: session;
 
-    @Column()
+    @Column({name: 'session_id'})
     session_id: string;
 
     @OneToMany(() => schedule_notify, schedule_notify => schedule_notify.schedule)
     schedules_notify: schedule_notify[];
 
-    @Column()
+    @Column({name: 'type'})
     type: string;
 
-    @Column()
+    @Column({name: 'date'})
     date: Date;
 
-    @Column()
+    @Column({name: 'status'})
     status: string;
 
-    @Column()
+    @Column({name: 'error'})
     error: string;
 
-    @Column()
+    @Column({name: 'created'})
     created: Date;
 
-    @Column()
+    @Column({name: 'updated'})
     updated: Date;
 
-    @Column()
+    @Column({name: 'code'})
     code: string;
 
 }

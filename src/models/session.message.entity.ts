@@ -13,19 +13,19 @@ export class session_message{
     @Column({name: "session_id"})
     session_id: string;
 
-    @Column()
+    @Column({name: 'from'})
     from: string;
 
-    @Column()
+    @Column({name: 'to'})
     to: string;
 
-    @Column()
+    @Column({name: 'message'})
     message: string;
 
-    @Column()
+    @Column({name: 'direction'})
     direction: string;
 
-    @Column()
+    @Column({name: 'date'})
     date: Date;
 
 } 
